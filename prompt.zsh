@@ -6,7 +6,6 @@ white="015"
 # dir_arrow_end_bg="039"
 dir_arrow_end_bg="039"
 
-echo "prompt loaded"
 autoload -Uz vcs_info
 #
 zstyle ':vcs_info:git:*' formats '%b '
@@ -59,9 +58,6 @@ get_current_dir () {
         echo $dir
     fi
 }
-
-echo $dir_arrow_end_bg
-
 
 setopt PROMPT_SUBST
 

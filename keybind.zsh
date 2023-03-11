@@ -5,4 +5,4 @@ bindkey -v
 
 bindkey jk vi-cmd-mode
 
-alias sa='source $HOME/.config/zsh/.zshrc;echo "ZSH aliases sourced."'
+alias sa='source $HOME/.config/zsh/.zshrc; echo "ZSH aliases sourced."'

@@ -1,6 +1,5 @@
 #!/bin/bash
 
-echo "Hello zsh from zshrc (non dot file)"
 export HISTSIZE=10000
 export SAVEHIST=10000
 export HSITFILE=$ZDOTDIR/cache/.zsh_history
