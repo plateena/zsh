@@ -23,7 +23,11 @@ git_branch_name () {
     if [[ $(git diff) ]]; then
         bg="196"
     else
-        bg="030"
+        bg="166"
+    fi
+
+    if [ -z "$(git status --porcelain)" ]; then
+        bg="036"
     fi
 
     dir_arrow_end_bg="$bg"
