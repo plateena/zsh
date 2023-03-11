@@ -21,9 +21,9 @@ git_branch_name () {
     local dir=$(git rev-parse --show-toplevel)
 
     if [[ $(git diff) ]]; then
-        bg="208"
+        bg="196"
     else
-        bg="$black"
+        bg="030"
     fi
 
     dir_arrow_end_bg="$bg"
@@ -31,6 +31,8 @@ git_branch_name () {
     pr+="%K{$black}%F{green} $dir%K{$bg}%F{$black}%K{$bg}%F{015} $branch %K{$black}%F{$bg}"
     if [ ! -z "$prefix" ]; then
         pr+=" %F{green}$prefix %K{039}%F{$black}%F{none}"
+    else
+        pr+="%K{039}%F{$black}%F{none}"
     fi
 
     echo "$pr"
@@ -74,11 +76,10 @@ precmd() {
     PROMPT="$p %# %K{none}%F{039}%K{none}%F{none} "
 
     rp=""
-    # rp+="%b%2~ "
-    rp+="%K{none}%F{$white}%B%K{$white}%F{$black} %* "
-    # h for history number
-    rp+="%K{$white}%F{040}%K{040}%F{$black} %D %h"
-    rp+=" %F{016}%B%b"
-    rp+="$(lsb_release -a | grep Description | cut -d : -f 2 | xargs echo -n)"
+# rp+="%b%2~ "
+    rp+="%F{$white}%F{$white} %* "
+# print the date
+    rp+="%F{031}%F{039} %D "
+# rp+="$(lsb_release -a | grep Description | cut -d : -f 2 | xargs echo -n)"
     RPROMPT="$rp%K{none}%F{none}"
 }
