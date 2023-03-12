@@ -62,7 +62,7 @@ get_current_dir () {
 
 setopt PROMPT_SUBST
 
-precmd() {
+set_prompt() {
     p=""
     p+="%K{$white}%B %(?.%F{035}√.%F{red}!)%b %K{black}%F{$white}"
 

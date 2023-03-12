@@ -37,3 +37,6 @@ abbrev-alias v='nvim'
 abbrev-alias env='env | fzf'
 abbrev-alias ls='lsd'
 abbrev-alias ecp="echo $PATH | sed 's/:/\\n/g' | fzf"
+
+#git
+abbrev-alias gcb="git checkout -b "
