@@ -31,6 +31,7 @@ git_branch_name () {
 
     dir_arrow_end_bg="$bg"
 
+    # @TODO: <zainundin: 12-03-2023> need to add first leter to dir name when its to long
     pr+="%K{$black}%F{green} $dir%K{$bg}%F{$black}%K{$bg}%F{015} $branch %K{$black}%F{$bg}"
     if [ ! -z "$prefix" ]; then
         pr+=" %F{green}$prefix %K{039}%F{$black}%F{none}"

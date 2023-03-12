@@ -29,9 +29,14 @@ preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
 #completion
 
+source $ZDOTDIR/env.zsh
 source $ZDOTDIR/completions.zsh
+source $ZDOTDIR/fzf.zsh
 source $ZDOTDIR/keybind.zsh
 source $ZDOTDIR/plugins.zsh
 source $ZDOTDIR/prompt.zsh
+source $ZDOTDIR/alias.zsh
+
+set_fzf_theme ""
 
 #vi: ft=zsh
