@@ -47,4 +47,6 @@ set_alias () {
     abbrev-alias gbm='git branch -m '
     abbrev-alias gbd='git branch -d $(git branch | fzf)'
     abbrev-alias gbD='git branch -D $(git branch | fzf)'
+    abbrev-alias gl='git log'
+    abbrev-alias glo='git log --oneline'
 }
