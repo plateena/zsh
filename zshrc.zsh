@@ -35,10 +35,11 @@ source $ZDOTDIR/fzf.zsh
 source $ZDOTDIR/keybind.zsh
 source $ZDOTDIR/plugins.zsh
 source $ZDOTDIR/prompt.zsh
+source $ZDOTDIR/alias.zsh
 
 precmd() {
-    source $ZDOTDIR/alias.zsh
     set_prompt
+    set_alias
 }
 
 set_fzf_theme ""
