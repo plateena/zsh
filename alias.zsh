@@ -37,10 +37,11 @@ set_alias () {
     abbrev-alias v='nvim'
     abbrev-alias env='env | fzf'
     abbrev-alias ls='lsd'
+    abbrev-alias ll='lsd -l'
     abbrev-alias ecp="echo $PATH | sed 's/:/\\n/g' | fzf"
-
+    
     #git
-    abbrev-alias gcb="git checkout -b "
-    abbrev-alias gco="git checkout $(git branch | fzf) "
-    abbrev-alias gmb="git merge $(git branch | fzf) "
+    abbrev-alias gcb="git checkout -b"
+    abbrev-alias gco='git checkout $(git branch | fzf)'
+    abbrev-alias gm='git merge $(git branch | fzf)'
 }

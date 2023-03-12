@@ -10,7 +10,7 @@ autoload -Uz vcs_info
 #
 zstyle ':vcs_info:git:*' formats '%b '
 
-# precmd() { vcs_info }
+source $ZDOTDIR/scripts/shortendir.sh
 
 git_branch_name () {
     branch=$(git branch --show-current)
@@ -31,8 +31,13 @@ git_branch_name () {
 
     dir_arrow_end_bg="$bg"
 
-    # @TODO: <zainundin: 12-03-2023> need to add first leter to dir name when its to long
-    pr+="%K{$black}%F{green} $dir%K{$bg}%F{$black}%K{$bg}%F{015} $branch %K{$black}%F{$bg}"
+    dir=$(shorten_dir $dir 20)
+
+    if [[ ! -z "$prefix" ]]; then
+        prefix=$(shorten_dir $prefix 10)
+    fi
+
+    pr+="%K{$black}%F{green} $dir %K{$bg}%F{$black}%K{$bg}%F{015} $branch %K{$black}%F{$bg}"
     if [ ! -z "$prefix" ]; then
         pr+=" %F{green}$prefix %K{039}%F{$black}%F{none}"
     else
@@ -54,15 +59,25 @@ is_inside_git ()
 get_current_dir () {
     dir="%~"
     if is_inside_git; then
-        echo $(git rev-parse --show-toplevel)
+        echo shorten_dir $(git rev-parse --show-toplevel)
     else
-        echo $dir
+        echo shorten_dir $dir
     fi
 }
 
 setopt PROMPT_SUBST
 
-precmd() {
+set_right_prompt () {
+    rp=""
+# rp+="%b%2~ "
+    rp+="%F{$white}%F{$white} %* "
+# print the date
+    rp+="%F{031}%F{039} %D "
+# rp+="$(lsb_release -a | grep Description | cut -d : -f 2 | xargs echo -n)"
+    RPROMPT="$rp%K{none}%F{none}"
+}
+
+set_left_prompt () {
     p=""
     p+="%K{$white}%B %(?.%F{035}√.%F{red}!)%b %K{black}%F{$white}"
 
@@ -75,12 +90,9 @@ precmd() {
 
 
     PROMPT="$p %# %K{none}%F{039}%K{none}%F{none} "
+}
 
-    rp=""
-# rp+="%b%2~ "
-    rp+="%F{$white}%F{$white} %* "
-# print the date
-    rp+="%F{031}%F{039} %D "
-# rp+="$(lsb_release -a | grep Description | cut -d : -f 2 | xargs echo -n)"
-    RPROMPT="$rp%K{none}%F{none}"
+set_prompt() {
+    set_left_prompt
+    set_right_prompt
 }
