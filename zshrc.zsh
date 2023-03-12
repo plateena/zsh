@@ -7,6 +7,7 @@ export HSITFILE=$ZDOTDIR/cache/.zsh_history
 setopt HIST_IGNORE_ALL_DUPS
 # History won't show duplicates on search.
 setopt HIST_FIND_NO_DUPS
+unsetopt autocd
 
 # Change cursor shape for different vi modes.
 function zle-keymap-select () {
