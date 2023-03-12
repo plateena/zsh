@@ -41,4 +41,5 @@ set_alias () {
 
     #git
     abbrev-alias gcb="git checkout -b "
+    abbrev-alias gco="git checkout $(git branch | fzf) "
 }
