@@ -1,6 +1,3 @@
-# @TODO: <zainundin: 14-03-2023> can be more colorfull
-# @TODO: <zainundin: 14-03-2023> can be more colorfull
-# @TODO: <zainundin: 14-03-2023> can be more colorfull
 echo '\e[0;31m      .                       '
 echo '      |`.                     '
 echo '      ;  `.                   '
