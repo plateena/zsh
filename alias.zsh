@@ -37,6 +37,7 @@ zle -N accept-line expand-alias-and-accept-line
 set_alias () {
     abbrev-alias v='nvim'
     abbrev-alias env='env | fzf'
+    abbrev-alias cl='clear'
     abbrev-alias ls='lsd'
     abbrev-alias ll='lsd -l'
     abbrev-alias ecp="echo $PATH | sed 's/:/\\n/g' | fzf"
