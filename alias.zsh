@@ -40,7 +40,9 @@ set_alias () {
     abbrev-alias cl='clear'
     abbrev-alias ls='lsd'
     abbrev-alias ll='lsd -l'
+    abbrev-alias lla='lsd -la'
     abbrev-alias ecp="echo $PATH | sed 's/:/\\n/g' | fzf"
+    abbrev-alias his='history'
 
     # tmux
     abbrev-alias tl='tmux ls'
