@@ -10,6 +10,20 @@ dir_arrow_end_bg="039"
 
 source $ZDOTDIR/scripts/shortendir.sh
 
+# check icon at https://www.nerdfonts.com/cheat-sheet 
+branch_icon() {
+    # printf "\uf418"
+    printf "\ue725"
+}
+check_icon() {
+    # printf "\uf058" # rounded check
+    printf "\ue63f" # rounded check
+}
+exclamation_icon() {
+    # printf "\uf06a" # rounded exclamation
+    printf "\uf12a" # fat exclamation
+}
+
 git_branch_name () {
     branch=$(git branch --show-current)
     local bg="red"
@@ -17,12 +31,14 @@ git_branch_name () {
     local pr=""
     local dir=$(git rev-parse --show-toplevel)
 
+    # check if the git status has diff
     if [[ $(git diff) ]]; then
         bg="196"
     else
         bg="166"
     fi
 
+    # to check the current git status is clean
     if [ -z "$(git status --porcelain)" ]; then
         bg="036"
     fi
@@ -35,11 +51,15 @@ git_branch_name () {
         prefix=$(shorten_dir $prefix 10)
     fi
 
-    pr+="%K{$black}%F{green} $dir %K{$bg}%F{$black}%K{$bg}%F{015} $branch %K{$black}%F{$bg}"
+    # directory
+    pr+="%K{$black}%F{green} $dir %K{$bg}%F{$black}"
+    # branch
+    pr+="%K{$bg}%F{015} %B$(branch_icon) $branch %K{$black}%F{$bg}"
+
     if [ ! -z "$prefix" ]; then
         pr+=" %F{green}$prefix %K{039}%F{$black}%F{none}"
     else
-        pr+="%K{039}%F{$black}%F{none}"
+        pr+="%B%K{039}%F{$black}%F{none}"
     fi
 
     echo "$pr"
@@ -77,17 +97,18 @@ set_right_prompt () {
 
 set_left_prompt () {
     p=""
-    p+="%K{$white}%B %(?.%F{035}√.%F{red}!)%b %K{black}%F{$white}"
+    # print last command status
+    p+="%K{015} %B%(?.%F{035}$(check_icon).%F{red}$(exclamation_icon))%b %K{black}%F{015}"
 
     if is_inside_git; then
         p+="$(git_branch_name)"
     else
+        # directory path listing
         p+="%K{$black}%F{green} %~ %K{039}%F{$black}"
-        p+="%K{none}%F{039}"
+        # p+="%K{none}%F{039}"
     fi
 
-
-    PROMPT="$p %# %K{none}%F{039}%K{none}%F{none} "
+    PROMPT="$p%K{039}%F{$black}%B %# %K{none}%F{039}%K{none}%F{none} "
 }
 
 set_prompt() {
