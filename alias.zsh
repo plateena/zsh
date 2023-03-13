@@ -56,6 +56,7 @@ set_alias () {
     abbrev-alias gbD='git branch -D $(git branch | fzf)'
     abbrev-alias gl='git log'
     abbrev-alias glo='git log --oneline'
+    abbrev-alias gp='git push origin $(git branch | sed '\''s/[* ]//g'\'' | fzf)'
 
     # docker
     abbrev-alias dsu='sandbox up '
