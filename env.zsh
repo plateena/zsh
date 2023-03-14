@@ -13,6 +13,7 @@ path="/usr/games:$path"
 path="/usr/local/games:$path"
 path="/snap/bin:$path"
 
+export EDITOR="nvim"
 export DOTFILE="$HOME/.dotfiles"
 
 # For fzf environment variable please check fzf.zsh
