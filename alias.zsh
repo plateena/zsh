@@ -35,6 +35,9 @@ expand-alias-and-accept-line() {
 zle -N accept-line expand-alias-and-accept-line
 
 set_alias () {
+    abbrev-alias shn='shutdown now'
+    abbrev-alias srn='shutdown -r now'
+
     abbrev-alias v='nvim'
     abbrev-alias env='env | fzf'
     abbrev-alias cl='clear'
@@ -43,6 +46,7 @@ set_alias () {
     abbrev-alias lla='lsd -la'
     abbrev-alias ecp="echo $PATH | sed 's/:/\\n/g' | fzf"
     abbrev-alias his='history'
+    abbrev-alias todop='welcome global-todo'
 
     # tmux
     abbrev-alias tl='tmux ls'
@@ -51,6 +55,7 @@ set_alias () {
     abbrev-alias tks='tmux kill-session -t $(tmux ls | awk '\''{print $1}'\'' | sed -e '\''s/://'\'' | xargs echo -n | fzf )'
     
     # git
+    abbrev-alias gts="git status"
     abbrev-alias gcb="git checkout -b"
     abbrev-alias gco='git checkout $(git branch | fzf)'
     abbrev-alias gm='git merge $(git branch | fzf)'
