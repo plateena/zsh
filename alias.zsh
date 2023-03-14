@@ -38,21 +38,22 @@ set_alias () {
     abbrev-alias shn='shutdown now'
     abbrev-alias srn='shutdown -r now'
 
-    abbrev-alias v='nvim'
-    abbrev-alias env='env | fzf | xargs ehco -e'
+    abbrev-alias al='alias | fzf | xargs echo -e'
     abbrev-alias cl='clear'
-    abbrev-alias ls='lsd'
+    abbrev-alias ecp="echo $PATH | sed 's/:/\\n/g' | fzf | xargs echo -e"
+    abbrev-alias env='env | fzf | xargs ehco -e'
+    abbrev-alias his='history'
     abbrev-alias ll='lsd -l'
     abbrev-alias lla='lsd -la'
-    abbrev-alias ecp="echo $PATH | sed 's/:/\\n/g' | fzf | xargs echo -e"
-    abbrev-alias his='history'
+    abbrev-alias ls='lsd'
     abbrev-alias todop='welcome global-todo'
+    abbrev-alias v='nvim'
 
     # tmux
+    abbrev-alias tas='tmux attach-session -t $(tmux ls | sed -e '\''s/://'\'' | awk '\''{print $1}'\'' | fzf | xargs echo -e)'
+    abbrev-alias tks='tmux kill-session -t $(tmux ls | sed -e '\''s/://'\'' | awk '\''{print $1}'\'' | fzf | xargs echo -e)'
     abbrev-alias tl='tmux ls'
     abbrev-alias tt='tmux'
-    abbrev-alias tas='tmux attach-session -t $(tmux ls | awk '\''{print $1}'\'' | sed -e '\''s/://'\'' | xargs echo -n | fzf  | xargs echo -e)'
-    abbrev-alias tks='tmux kill-session -t $(tmux ls | awk '\''{print $1}'\'' | sed -e '\''s/://'\'' | xargs echo -n | fzf  | xargs echo -e)'
     
     # git
     abbrev-alias gbD='git branch -D $(git branch | fzf | xargs echo -e)'
@@ -70,7 +71,7 @@ set_alias () {
     abbrev-alias gpc='git pull origin $(git branch --show-current | xargs echo -e)'
 
     # docker
+    abbrev-alias de='docker compose exec -it $()'
     abbrev-alias dsu='sandbox up '
     abbrev-alias du='docker compose up '
-    abbrev-alias de='docker compose exec -it $()'
 }
