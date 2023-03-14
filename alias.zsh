@@ -56,6 +56,7 @@ set_alias () {
     abbrev-alias tt='tmux'
     
     # git
+    abbrev-alias gbl='git branch'
     abbrev-alias gbD='git branch -D $(git branch | fzf | xargs echo -e)'
     abbrev-alias gbd='git branch -d $(git branch | fzf | xargs echo -e)'
     abbrev-alias gbm='git branch -m '
@@ -71,6 +72,8 @@ set_alias () {
     abbrev-alias gpc='git pull origin $(git branch --show-current | xargs echo -e)'
     # check https://git-scm.com/docs/pretty-formats
     abbrev-alias glp='git log --pretty=format:"%C(auto) %h %>(9,trunc)%ch %Cblue%cn%C(auto)%d %s"'
+    abbrev-alias gcn='git config user.name '
+    abbrev-alias gce='git config user.email '
 
     # docker
     abbrev-alias de='docker compose exec -it $()'

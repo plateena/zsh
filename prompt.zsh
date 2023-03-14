@@ -8,7 +8,7 @@ dir_arrow_end_bg="039"
 
 # zstyle ':vcs_info:git:*' formats '%b '
 
-source $ZDOTDIR/scripts/shortendir.sh
+source $ZDOTDIR/bin/shortendir.sh
 
 # check icon at https://www.nerdfonts.com/cheat-sheet 
 branch_icon() {
