@@ -88,7 +88,7 @@ setopt PROMPT_SUBST
 set_right_prompt () {
     rp=""
 # rp+="%b%2~ "
-    rp+="%F{$white}%F{$white} %* "
+    rp+="%F{015}%F{015} %* "
 # print the date
     rp+="%F{031}%F{039} %D "
 # rp+="$(lsb_release -a | grep Description | cut -d : -f 2 | xargs echo -n)"
