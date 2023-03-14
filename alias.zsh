@@ -49,6 +49,10 @@ set_alias () {
     abbrev-alias todop='welcome global-todo'
     abbrev-alias v='nvim'
 
+    abbrev-alias ala-theme='bash ~/.config/alacritty/bin/alacritty-command theme $( lsd ~/.config/alacritty/themes | sed '\''s/.yaml//'\'' | fzf | xargs echo -e)'
+    abbrev-alias ala-font='bash ~/.config/alacritty/bin/alacritty-command font $(fc-list : family | sort | uniq | fzf | sed '\''s/ /\_\_/g'\'' | xargs -I {} echo -e {} )'
+    abbrev-alias ala-fontsize='bash ~/.config/alacritty/bin/alacritty-command fontsize '
+
     # tmux
     abbrev-alias tas='tmux attach-session -t $(tmux ls | sed -e '\''s/://'\'' | awk '\''{print $1}'\'' | fzf | xargs echo -e)'
     abbrev-alias tks='tmux kill-session -t $(tmux ls | sed -e '\''s/://'\'' | awk '\''{print $1}'\'' | fzf | xargs echo -e)'
