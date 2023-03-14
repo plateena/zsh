@@ -39,32 +39,35 @@ set_alias () {
     abbrev-alias srn='shutdown -r now'
 
     abbrev-alias v='nvim'
-    abbrev-alias env='env | fzf'
+    abbrev-alias env='env | fzf | xargs ehco -e'
     abbrev-alias cl='clear'
     abbrev-alias ls='lsd'
     abbrev-alias ll='lsd -l'
     abbrev-alias lla='lsd -la'
-    abbrev-alias ecp="echo $PATH | sed 's/:/\\n/g' | fzf"
+    abbrev-alias ecp="echo $PATH | sed 's/:/\\n/g' | fzf | xargs echo -e"
     abbrev-alias his='history'
     abbrev-alias todop='welcome global-todo'
 
     # tmux
     abbrev-alias tl='tmux ls'
     abbrev-alias tt='tmux'
-    abbrev-alias tas='tmux attach-session -t $(tmux ls | awk '\''{print $1}'\'' | sed -e '\''s/://'\'' | xargs echo -n | fzf )'
-    abbrev-alias tks='tmux kill-session -t $(tmux ls | awk '\''{print $1}'\'' | sed -e '\''s/://'\'' | xargs echo -n | fzf )'
+    abbrev-alias tas='tmux attach-session -t $(tmux ls | awk '\''{print $1}'\'' | sed -e '\''s/://'\'' | xargs echo -n | fzf  | xargs echo -e)'
+    abbrev-alias tks='tmux kill-session -t $(tmux ls | awk '\''{print $1}'\'' | sed -e '\''s/://'\'' | xargs echo -n | fzf  | xargs echo -e)'
     
     # git
-    abbrev-alias gts="git status"
-    abbrev-alias gcb="git checkout -b"
-    abbrev-alias gco='git checkout $(git branch | fzf)'
-    abbrev-alias gm='git merge $(git branch | fzf)'
+    abbrev-alias gbD='git branch -D $(git branch | fzf | xargs echo -e)'
+    abbrev-alias gbd='git branch -d $(git branch | fzf | xargs echo -e)'
     abbrev-alias gbm='git branch -m '
-    abbrev-alias gbd='git branch -d $(git branch | fzf)'
-    abbrev-alias gbD='git branch -D $(git branch | fzf)'
+    abbrev-alias gcb="git checkout -b"
+    abbrev-alias gco='git checkout $(git branch | fzf | xargs echo -e)'
     abbrev-alias gl='git log'
     abbrev-alias glo='git log --oneline'
-    abbrev-alias gp='git push origin $(git branch | sed '\''s/[* ]//g'\'' | fzf)'
+    abbrev-alias gm='git merge $(git branch | fzf | xargs echo -e)'
+    abbrev-alias gps='git push origin $(git branch | sed '\''s/[* ]//g'\'' | fzf | xargs echo -e)'
+    abbrev-alias gpsc='git push origin $(git branch --show-current | xargs echo -e)'
+    abbrev-alias gst="git status"
+    abbrev-alias gp='git pull origin $(git branch | fzf | awk '\''{print $2}'\'' | xargs echo -e)'
+    abbrev-alias gpc='git pull origin $(git branch --show-current | xargs echo -e)'
 
     # docker
     abbrev-alias dsu='sandbox up '
