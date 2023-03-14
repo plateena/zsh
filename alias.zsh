@@ -80,7 +80,7 @@ set_alias () {
     abbrev-alias gce='git config user.email '
 
     # docker
-    abbrev-alias de='docker compose exec -it $()'
+    abbrev-alias de='docker exec -it $(docker ps | tail -n +2 | awk '\''{print $NF}'\'' | fzf | xargs echo -e )'
     abbrev-alias dsu='sandbox up '
     abbrev-alias du='docker compose up '
 }
