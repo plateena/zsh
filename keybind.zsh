@@ -4,8 +4,10 @@
 bindkey -v
 bindkey jk vi-cmd-mode
 
-source $XDG_CONFIG_HOME/fzf/shell/key-bindings.zsh
-source $XDG_CONFIG_HOME/fzf/shell/completion.zsh
+fzf_path=/mnt/wslg/distro/usr/share/doc
+
+source $fzf_path/fzf/examples/key-bindings.zsh
+source $fzf_path/fzf/examples/completion.zsh
 
 zstyle ':completion:*' menu select
 zmodload zsh/complist
