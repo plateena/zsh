@@ -32,21 +32,25 @@ fi
 if [[ "$1" = "todo" ]]; then
     todo_file=$HOME/.config/zsh/greetings/todo.md
     echo "" > $todo_file
-    echo -e $(ag --color --color-match '0;94m\e[1' --group "(TODO).+zainundin" ./ --ignore-dir snippet | sed 's/^/\\n/') >  $todo_file
-    # nvim "$todo_file" -c "g/:#/norm 0i    " -c wq
+    echo -e $(ag --color --color-match '0;94m\e[1' --group "@?TODO(?=.+zainundin)" ./ --ignore todo.md --ignore-dir snippet | sed 's/^/\\n/') >  $todo_file
     source "$HOME/.config/zsh/ascii/todo.zsh"
     cat "$todo_file"
 fi
 
 if [[ "$1" = "global-todo" ]]; then
     todo_file=$HOME/.config/zsh/greetings/todo.md
-    echo "" > $todo_file
-    echo -e $(ag --color --color-match '0;94m\e[1' --group "(TODO).+zainundin" ./ --ignore "todo.md" --ignore-dir snippet | sed 's/^/\\n/') >  $todo_file
-    # nvim "$todo_file" -c "g/:#/norm 0i    " -c wq
-    source "$HOME/.config/zsh/ascii/todo.zsh"
 
-    echo ""
+    if [[ -d $todo_file ]]; then
+        echo "" > $todo_file
+        echo -e $(ag --color --color-match '0;94m\e[1' --group "@?TODO(?=.+zainundin)" ./ --ignore todo.md --ignore-dir snippet | sed 's/^/\\n/') >  $todo_file
+        source "$HOME/.config/zsh/ascii/todo.zsh"
 
-    tail --lines=+2 "$HOME/vimwiki/Todo.md"
-    cat "$todo_file"
+        echo ""
+
+        tail --lines=+2 "$HOME/vimwiki/Todo.md"
+        cat "$todo_file"
+    else 
+        echo "`tput setaf 221` Error: Can't display todo list: "
+        echo "`tput setaf 197` File $todo_file not exist!";
+    fi
 fi
