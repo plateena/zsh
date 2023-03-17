@@ -23,4 +23,8 @@ zle -N vi-append-x-selection
 bindkey -a '^X' vi-append-x-selection
 vi-yank-x-selection () { print -rn -- $CUTBUFFER | xsel -i -p; }
 zle -N vi-yank-x-selection
+
 bindkey -a '^Y' vi-yank-x-selection
+
+# fix backspace char not function
+bindkey -v '^?' backward-delete-char
