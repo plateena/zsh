@@ -23,4 +23,12 @@ export DOTFILE="$HOME/.dotfiles"
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240"
 export PATH="$DOTFILE/npm-global/bin:$path"
 
+export XDG_CONFIG_HOME=$HOME/.config
+export XDG_CACHE_HOME=$HOME/.cache
+export XDG_DATA_HOME=$HOME/.local/share
+export XDG_STATE_HOME=$HOME/.local/state
+
 export NPM_CONFIG_USERCONFIG=$HOME/$DOTFILE/.npmrc
+export TASKRC=$XDG_CONFIG_HOME/task/taskrc 
+# export TASKDATA=$XDG_DATA_HOME/task
+export MYCLI_HISTFILE=$XDG_CACHE_HOME/mycli-history
