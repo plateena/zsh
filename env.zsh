@@ -22,3 +22,5 @@ export DOTFILE="$HOME/.dotfiles"
 # color can be found https://upload.wikimedia.org/wikipedia/commons/1/15/Xterm_256color_chart.svg
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240"
 export PATH="$DOTFILE/npm-global/bin:$path"
+
+export NPM_CONFIG_USERCONFIG=$HOME/$DOTFILE/.npmrc
