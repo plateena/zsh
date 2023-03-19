@@ -5,13 +5,13 @@ source $ZDOTDIR/.zprofile
 export HISTSIZE=10000
 export SAVEHIST=10000
 
-if [[ -z $HOME/.cache ]]; then
+if [[ ! -d $HOME/.cache ]]; then
     mkdir $HOME/.cache
 fi
-if [[ -z $HOME/.config ]]; then
+if [[ ! -d $HOME/.config ]]; then
     mkdir $HOME/.config
 fi
-if [[ -z $HOME/.local ]]; then
+if [[ ! -d $HOME/.local ]]; then
     mkdir $HOME/.local
 fi
 

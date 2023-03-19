@@ -29,6 +29,14 @@ if [[ "$1" = "fsor" ]]; then
     fortune | cowsay -f stegosaurus 
 fi
 
+if [[ ! -d $HOME/.config/zsh/greetings ]]; then
+    mkdir $HOME/.config/zsh/greetings
+fi
+
+if [[ ! -f $HOME/.config/zsh/greetings/todo.md ]]; then
+    touch $HOME/.config/zsh/greetings/todo.md
+fi
+
 if [[ "$1" = "todo" ]]; then
     todo_file=$HOME/.config/zsh/greetings/todo.md
     echo "" > $todo_file
