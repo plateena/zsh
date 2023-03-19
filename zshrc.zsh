@@ -4,6 +4,17 @@ source $ZDOTDIR/.zprofile
 
 export HISTSIZE=10000
 export SAVEHIST=10000
+
+if [[ -z $HOME/.cache ]]; then
+    mkdir $HOME/.cache
+fi
+if [[ -z $HOME/.config ]]; then
+    mkdir $HOME/.config
+fi
+if [[ -z $HOME/.local ]]; then
+    mkdir $HOME/.local
+fi
+
 export HISTFILE=$HOME/.cache/.zsh_history
 # History won't save duplicates.
 setopt HIST_IGNORE_ALL_DUPS
