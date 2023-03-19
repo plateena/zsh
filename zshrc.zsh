@@ -1,12 +1,29 @@
 #!/bin/bash
 
+source $ZDOTDIR/.zprofile
+
 export HISTSIZE=10000
 export SAVEHIST=10000
-export HSITFILE=$ZDOTDIR/cache/.zsh_history
+
+if [[ -z $HOME/.cache ]]; then
+    mkdir $HOME/.cache
+fi
+if [[ -z $HOME/.config ]]; then
+    mkdir $HOME/.config
+fi
+if [[ -z $HOME/.local ]]; then
+    mkdir $HOME/.local
+fi
+
+export HISTFILE=$HOME/.cache/.zsh_history
 # History won't save duplicates.
 setopt HIST_IGNORE_ALL_DUPS
 # History won't show duplicates on search.
 setopt HIST_FIND_NO_DUPS
+
+setopt INC_APPEND_HISTORY
+setopt SHARE_HISTORY 
+
 unsetopt autocd
 
 # Change cursor shape for different vi modes.
@@ -42,6 +59,16 @@ precmd() {
     set_prompt
     set_alias
 }
+
+welcome() {
+    source $ZDOTDIR/.zprofile
+}
+
+autoload welcome
+zle -N welcome
+
+welcome "todo"
+
 
 set_fzf_theme ""
 
