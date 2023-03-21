@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [[ -z $ZDOTDIR ]]; then
+    export ZDOTDIR=$HOME/.config/zsh
+else 
+fi
+
 source $ZDOTDIR/.zprofile
 
 export HISTSIZE=10000
