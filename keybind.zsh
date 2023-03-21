@@ -9,6 +9,13 @@ if [[ -d $XDG_CONFIG_HOME/fzf/shell ]]; then
     source $XDG_CONFIG_HOME/fzf/shell/completion.zsh
 fi
 
+if [[ -f $XDG_CONFIG_HOME/zsh/completion/tmuxinator.zsh ]]; then
+    source $XDG_CONFIG_HOME/zsh/completion/tmuxinator.zsh
+fi
+if [[ -f $XDG_CONFIG_HOME/zsh/completion/fzf.zsh ]]; then
+    source $XDG_CONFIG_HOME/zsh/completion/fzf.zsh
+fi
+
 zstyle ':completion:*' menu select
 zmodload zsh/complist
 
