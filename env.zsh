@@ -27,6 +27,7 @@ add_path "/usr/local/games"
 add_path "/usr/local/bin"
 add_path "/snap/bin"
 add_path "$HOME/.local/bin"
+add_path "$HOME/plateena/bin"
 add_path "$HOME/bin"
 add_path "$DOTFILE/npm-global/bin"
 
