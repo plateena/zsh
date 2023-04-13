@@ -44,3 +44,4 @@ export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240"
 
 # export TASKDATA=$XDG_DATA_HOME/task
 export MYCLI_HISTFILE=$XDG_CACHE_HOME/mycli-history
+export TMUXINATOR_CONFIG=$HOME/plateena/tmuxinator
