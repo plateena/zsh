@@ -40,7 +40,7 @@ fi
 if [[ "$1" = "todo" ]]; then
     todo_file=$HOME/.config/zsh/greetings/todo.md
     echo "" > $todo_file
-    echo -e $(ag --color --color-match '0;94m\e[1' --group "@?TODO(?=.+zainundin)" ./ --ignore todo.md --ignore-dir snippet | sed 's/^/\\n/') >  $todo_file
+    echo -e $(ag --color --color-match '0;94m\e[1' --group "@?TODO(?=.+zainundin)" ./ --ignore todo.md --ignore-dir snippet --ignore-dir mysql/data --ignore-dir mysql8/data | sed 's/^/\\n/') >  $todo_file
     source "$HOME/.config/zsh/ascii/todo.zsh"
     cat "$todo_file"
 fi
@@ -50,7 +50,7 @@ if [[ "$1" = "global-todo" ]]; then
 
     if [[ -d $todo_file ]]; then
         echo "" > $todo_file
-        echo -e $(ag --color --color-match '0;94m\e[1' --group "@?TODO(?=.+zainundin)" ./ --ignore todo.md --ignore-dir snippet | sed 's/^/\\n/') >  $todo_file
+        echo -e $(ag --color --color-match '0;94m\e[1' --group "@?TODO(?=.+zainundin)" ./ --ignore todo.md --ignore-dir snippet --ignore-dir mysql/data --ignore-dir mysql8/data | sed 's/^/\\n/') >  $todo_file
         source "$HOME/.config/zsh/ascii/todo.zsh"
 
         echo ""
