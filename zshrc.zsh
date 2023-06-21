@@ -72,7 +72,7 @@ welcome() {
 autoload welcome
 zle -N welcome
 
-welcome "todo"
+# welcome "todo"
 
 
 set_fzf_theme ""

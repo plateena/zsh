@@ -60,9 +60,14 @@ set_alias () {
     abbrev-alias tt='tmux'
     
     # git
+    abbrev-alias gfo='git fetch origin'
+    abbrev-alias gpl='git pull'
+
     abbrev-alias gbl='git branch'
     abbrev-alias gbD='git branch -D $(git branch | fzf | xargs echo -e)'
     abbrev-alias gbd='git branch -d $(git branch | fzf | xargs echo -e)'
+    abbrev-alias gbm='git branch -m '
+    abbrev-alias gsb='git switch $(git branch -r | fzf | sed -e '\''s/origin\///g'\'' | xargs echo -e)'
     abbrev-alias gbm='git branch -m '
     abbrev-alias gcb="git checkout -b"
     abbrev-alias gco='git checkout $(git branch | fzf | xargs echo -e)'
@@ -74,6 +79,7 @@ set_alias () {
     abbrev-alias gst="git status"
     abbrev-alias gp='git pull origin $(git branch | fzf | awk '\''{print $2}'\'' | xargs echo -e)'
     abbrev-alias gpc='git pull origin $(git branch --show-current | xargs echo -e)'
+    abbrev-alias gpo='git pull origin'
     # check https://git-scm.com/docs/pretty-formats
     abbrev-alias glp='git log --pretty=format:"%C(auto) [%h] - %d %s %Cblue%cn%C(auto) %C(cyan)%ch%C(auto)"'
     abbrev-alias gcn='git config user.name '
@@ -83,4 +89,15 @@ set_alias () {
     abbrev-alias de='docker exec -it $(docker ps | tail -n +2 | awk '\''{print $NF}'\'' | fzf | xargs echo -e )'
     abbrev-alias dsu='sandbox up '
     abbrev-alias du='docker compose up '
+
+    # npm
+    abbrev-alias nrt='npm run test'
+    abbrev-alias nrd='npm run dev'
+    abbrev-alias nrwd='npm run watch-dev'
+    abbrev-alias nrs='npm run start'
+    abbrev-alias nrb='npm run build'
+    abbrev-alias nrw='npm run watch'
+    abbrev-alias ni='npm instal'
+    abbrev-alias nis='npm instal --save '
+    abbrev-alias nid='npm install --save-dev '
 }
