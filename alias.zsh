@@ -80,6 +80,7 @@ set_alias () {
     abbrev-alias gp='git pull origin $(git branch | fzf | awk '\''{print $2}'\'' | xargs echo -e)'
     abbrev-alias gpc='git pull origin $(git branch --show-current | xargs echo -e)'
     abbrev-alias gpo='git pull origin'
+    abbrev-alias gsb='git switch $(git branch -r | sed '\''s/origin\///g'\'' | fzf | xargs echo -e)'
     # check https://git-scm.com/docs/pretty-formats
     abbrev-alias glp='git log --pretty=format:"%C(auto) [%h] - %d %s %Cblue%cn%C(auto) %C(cyan)%ch%C(auto)"'
     abbrev-alias gcn='git config user.name '
