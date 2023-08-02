@@ -74,6 +74,8 @@ set_alias () {
     abbrev-alias gl='git log'
     abbrev-alias glo='git log --oneline'
     abbrev-alias gm='git merge $(git branch | fzf | xargs echo -e)'
+    abbrev-alias gmc='git merge --continue'
+    abbrev-alias gma='git merge --abort'
     abbrev-alias gps='git push origin $(git branch | sed '\''s/[* ]//g'\'' | fzf | xargs echo -e)'
     abbrev-alias gpsc='git push origin $(git branch --show-current | xargs echo -e)'
     abbrev-alias gst="git status"
@@ -82,7 +84,7 @@ set_alias () {
     abbrev-alias gpo='git pull origin'
     abbrev-alias gsb='git switch $(git branch -r | sed '\''s/origin\///g'\'' | fzf | xargs echo -e)'
     # check https://git-scm.com/docs/pretty-formats
-    abbrev-alias glp='git log --pretty=format:"%C(auto) [%h] - %d %s %Cblue%cn%C(auto) %C(cyan)%ch%C(auto)"'
+    abbrev-alias glp='git log --pretty=format:"%C(auto) %h %>(13,trunc)%ch %Cblue%cn%C(auto)%d %s"'
     abbrev-alias gcn='git config user.name '
     abbrev-alias gce='git config user.email '
 
