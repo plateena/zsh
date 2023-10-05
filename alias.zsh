@@ -56,8 +56,7 @@ set_alias () {
     # tmux
     abbrev-alias tas='tmux attach-session -t $(tmux ls | sed -e '\''s/://'\'' | awk '\''{print $1}'\'' | fzf | xargs echo -e)'
     abbrev-alias tks='tmux kill-session -t $(tmux ls | sed -e '\''s/://'\'' | awk '\''{print $1}'\'' | fzf | xargs echo -e)'
-    abbrev-alias tl='tmux ls'
-    abbrev-alias tt='tmux'
+    abbrev-alias tls='tmux ls'
     
     # git
     abbrev-alias gfo='git fetch origin'
