@@ -1,13 +1,11 @@
-#!/bin/bash
+#!/bin/zsh
 
-# can checkot color at https://www.tweaking4all.com/software/macosx-software/xterm-color-cheat-sheet/
+# Color codes for prompt
 black="235"
 white="015"
-# dir_arrow_end_bg="039"
 dir_arrow_end_bg="039"
 
-# zstyle ':vcs_info:git:*' formats '%b '
-
+# Source the script for shortening directories
 source $ZDOTDIR/bin/shortendir.sh
 
 # check icon at https://www.nerdfonts.com/cheat-sheet 
@@ -24,21 +22,22 @@ exclamation_icon() {
     printf "\uf12a" # fat exclamation
 }
 
-git_branch_name () {
-    branch=$(git branch --show-current)
+# Function to display the git branch information in the prompt
+git_branch_name() {
+    local branch=$(git branch --show-current)
     local bg="red"
     local prefix=$(git rev-parse --show-prefix | sed 's/\/$//')
     local pr=""
     local dir=$(git rev-parse --show-toplevel)
 
-    # check if the git status has diff
+    # Check if the git status has differences
     if [[ $(git diff) ]]; then
         bg="196"
     else
         bg="166"
     fi
 
-    # to check the current git status is clean
+    # Check if the current git status is clean
     if [ -z "$(git status --porcelain)" ]; then
         bg="036"
     fi
@@ -51,9 +50,8 @@ git_branch_name () {
         prefix=$(shorten_dir $prefix 10)
     fi
 
-    # directory
+    # Constructing the prompt string
     pr+="%K{$black}%F{green} $dir %K{$bg}%F{$black}"
-    # branch
     pr+="%K{$bg}%F{015} %B$(branch_icon) $branch %K{$black}%F{$bg}"
 
     if [ ! -z "$prefix" ]; then
@@ -65,16 +63,13 @@ git_branch_name () {
     echo "$pr"
 }
 
-is_inside_git ()
-{
-    if git status &>/dev/null; then
-        return 0
-    else
-        return 1
-    fi
+# Function to check if the current shell is inside a git repository
+is_inside_git() {
+    git status &>/dev/null
 }
 
-get_current_dir () {
+# Function to get the current directory
+get_current_dir() {
     dir="%~"
     if is_inside_git; then
         echo shorten_dir $(git rev-parse --show-toplevel)
@@ -83,35 +78,33 @@ get_current_dir () {
     fi
 }
 
-setopt PROMPT_SUBST
-
-set_right_prompt () {
+# Function to set the right prompt
+set_right_prompt() {
     rp=""
-# rp+="%b%2~ "
     rp+="%F{015}%F{015} %* "
-# print the date
     rp+="%F{031}%F{039} %D "
-# rp+="$(lsb_release -a | grep Description | cut -d : -f 2 | xargs echo -n)"
     RPROMPT="$rp%K{none}%F{none}"
 }
 
-set_left_prompt () {
+# Function to set the left prompt
+set_left_prompt() {
     p=""
-    # print last command status
     p+="%K{015} %B%(?.%F{035}$(check_icon).%F{red}$(exclamation_icon))%b %K{black}%F{015}"
 
     if is_inside_git; then
         p+="$(git_branch_name)"
     else
-        # directory path listing
         p+="%K{$black}%F{green} %~ %K{039}%F{$black}"
-        # p+="%K{none}%F{039}"
     fi
 
     PROMPT="$p%K{039}%F{$black}%B %# %K{none}%F{039}%K{none}%F{none} "
 }
 
+# Function to set the complete prompt
 set_prompt() {
     set_left_prompt
     set_right_prompt
 }
+
+# Run the set_prompt function
+set_prompt

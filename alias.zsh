@@ -1,39 +1,49 @@
-#!/bin/bash
+#!/bin/zsh
 
-# declare a list of expandable aliases to fill up later
+# Aliases Configuration
+
+# Declare a list of expandable aliases to fill up later
 typeset -a ealiases
 ealiases=()
 
-# write a function for adding an alias to the list mentioned above
+# Function: abbrev-alias
+# -----------------------
+# Adds an alias to the list of expandable aliases
 function abbrev-alias() {
-alias $1
-ealiases+=(${1%%\=*})
+    alias $1
+    ealiases+=(${1%%\=*})
 }
 
-# expand any aliases in the current line buffer
+# Function: expand-ealias
+# -----------------------
+# Expands any aliases in the current line buffer
 function expand-ealias() {
-if [[ $LBUFFER =~ "\<(${(j:|:)ealiases})\$" ]]; then
-    zle _expand_alias
-    zle expand-word
-fi
-zle magic-space
+    if [[ $LBUFFER =~ "\<(${(j:|:)ealiases})\$" ]]; then
+        zle _expand_alias
+        zle expand-word
+    fi
+    zle magic-space
 }
 zle -N expand-ealias
 
-# Bind the space key to the expand-alias function above, so that space will expand any expandable aliases
+# Bind the space key to the expand-alias function
 bindkey ' '        expand-ealias
-bindkey '^ '       magic-space     # control-space to bypass completion
-bindkey -M isearch " "      magic-space     # normal space during searches
+bindkey '^ '       magic-space     # Control-space to bypass completion
+bindkey -M isearch " "      magic-space     # Normal space during searches
 
-# A function for expanding any aliases before accepting the line as is and executing the entered command
-expand-alias-and-accept-line() {
+# Function: expand-alias-and-accept-line
+# ---------------------------------------
+# Expands any aliases before accepting the line and executing the entered command
+function expand-alias-and-accept-line() {
     expand-ealias
     zle .backward-delete-char
     zle .accept-line
 }
-
 zle -N accept-line expand-alias-and-accept-line
 
+# Function: set_alias
+# ---------------------
+# Sets common aliases
 set_alias () {
     abbrev-alias shn='shutdown now'
     abbrev-alias srn='shutdown -r now'
@@ -103,3 +113,14 @@ set_alias () {
     abbrev-alias nis='npm instal --save '
     abbrev-alias nid='npm install --save-dev '
 }
+
+# Initialize common aliases
+set_alias
+
+# Documentation:
+# - This script defines expandable aliases that can be expanded using the space key.
+# - The 'abbrev-alias' function adds an alias to the list of expandable aliases.
+# - 'expand-ealias' expands aliases in the current line buffer upon pressing space.
+# - 'expand-alias-and-accept-line' expands aliases before executing the entered command.
+# - The 'set_alias' function sets common aliases.
+# - Make sure to source this script in your Zsh configuration to enable these aliases.
