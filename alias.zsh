@@ -79,8 +79,10 @@ set_alias () {
     abbrev-alias gsb='git switch $(git branch -r | fzf | sed -e '\''s/origin\///g'\'' | xargs echo -e)'
     abbrev-alias gbm='git branch -m '
     abbrev-alias gcb="git checkout -b"
+    abbrev-alias gcm='git checkout master'
     abbrev-alias gco='git checkout $(git branch | fzf | xargs echo -e)'
     abbrev-alias gl='git log'
+    abbrev-alias gf='git fetch'
     abbrev-alias glo='git log --oneline'
     abbrev-alias gm='git merge $(git branch | fzf | xargs echo -e)'
     abbrev-alias gmc='git merge --continue'
@@ -88,7 +90,8 @@ set_alias () {
     abbrev-alias gps='git push origin $(git branch | sed '\''s/[* ]//g'\'' | fzf | xargs echo -e)'
     abbrev-alias gpsc='git push origin $(git branch --show-current | xargs echo -e)'
     abbrev-alias gst="git status"
-    abbrev-alias gp='git pull origin $(git branch | fzf | awk '\''{print $2}'\'' | xargs echo -e)'
+    abbrev-alias gp="git pull"
+    abbrev-alias gpb='git pull origin $(git branch | fzf | awk '\''{print $2}'\'' | xargs echo -e)'
     abbrev-alias gpc='git pull origin $(git branch --show-current | xargs echo -e)'
     abbrev-alias gpo='git pull origin'
     abbrev-alias gsb='git switch $(git branch -r | sed '\''s/origin\///g'\'' | fzf | xargs echo -e)'
