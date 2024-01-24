@@ -4,6 +4,7 @@
 bindkey -v
 bindkey jk vi-cmd-mode
 
+echo $XDG_CONFIG_HOME
 if [[ -d $XDG_CONFIG_HOME/fzf/shell ]]; then
     source $XDG_CONFIG_HOME/fzf/shell/key-bindings.zsh
     source $XDG_CONFIG_HOME/fzf/shell/completion.zsh
@@ -12,8 +13,8 @@ fi
 if [[ -f $XDG_CONFIG_HOME/zsh/completion/tmuxinator.zsh ]]; then
     source $XDG_CONFIG_HOME/zsh/completion/tmuxinator.zsh
 fi
-if [[ -f $XDG_CONFIG_HOME/zsh/completion/fzf.zsh ]]; then
-    source $XDG_CONFIG_HOME/zsh/completion/fzf.zsh
+if [[ -f $XDG_CONFIG_HOME/zsh/keybind/fzf.zsh ]]; then
+    source $XDG_CONFIG_HOME/zsh/keybind/fzf.zsh
 fi
 
 zstyle ':completion:*' menu select
