@@ -17,7 +17,7 @@ if [[ -f $XDG_CONFIG_HOME/zsh/keybind/fzf.zsh ]]; then
     source $XDG_CONFIG_HOME/zsh/keybind/fzf.zsh
 fi
 
-zstyle ':completion:*' menu select
+# zstyle ':completion:*' menu select
 zmodload zsh/complist
 
 # use the vi navigation keys in menu completion

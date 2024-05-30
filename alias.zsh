@@ -53,13 +53,13 @@ set_alias () {
     abbrev-alias ecp="echo $PATH | sed 's/:/\\n/g' | fzf | xargs echo -e"
     abbrev-alias env='env | fzf | xargs ehco -e'
     abbrev-alias his='history'
-    abbrev-alias ll='lsd -l'
-    abbrev-alias lla='lsd -la'
-    abbrev-alias ls='lsd'
+    abbrev-alias ll='eza --color=always --icons=always -l'
+    abbrev-alias lla='eza --color=always --icons=always -la'
+    abbrev-alias lse='eza --color=always --icons=always'
     abbrev-alias todop='welcome global-todo'
     abbrev-alias v='nvim'
 
-    abbrev-alias ala-theme='bash ~/.config/alacritty/bin/alacritty-command theme $( lsd ~/.config/alacritty/themes | sed '\''s/.yaml//'\'' | fzf | xargs echo -e)'
+    abbrev-alias ala-theme='bash ~/.config/alacritty/bin/alacritty-command theme $( find ~/.config/alacritty/themes/*.toml | awk -F"/" '\''{print $NF}'\'' | sed '\''s/.toml//'\'' | fzf | xargs echo -e)'
     abbrev-alias ala-font='bash ~/.config/alacritty/bin/alacritty-command font $(fc-list : family | sort | uniq | fzf | sed '\''s/ /\_\_/g'\'' | xargs -I {} echo -e {} )'
     abbrev-alias ala-fontsize='bash ~/.config/alacritty/bin/alacritty-command fontsize '
 

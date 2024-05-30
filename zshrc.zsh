@@ -38,13 +38,6 @@ setopt HIST_SAVE_NO_DUPS
 setopt HIST_IGNORE_DUPS
 setopt HIST_FIND_NO_DUPS
 
-#completion styling
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
-zstyle ':completion:*' menu no
-zstyle ':fzf-tab:completion:cd:*' fzf-preview 'ls --color $realpath'
-
-unsetopt autocd
 
 # Change cursor shape for different vi modes.
 function zle-keymap-select () {
@@ -69,12 +62,27 @@ preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
 source $ZDOTDIR/env.zsh
 source $ZDOTDIR/completions.zsh
-source $ZDOTDIR/fzf.zsh
+# source $ZDOTDIR/fzf.zsh
 source $ZDOTDIR/keybind.zsh
 source $ZDOTDIR/prompt.zsh
 source $ZDOTDIR/alias.zsh
 source $ZDOTDIR/plugins.zsh
+source $ZDOTDIR/eza.zsh
 
+#completion styling
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' menu no
+# zstyle ':completion:*' menu select
+zstyle ':fzf-tab:completion:cd:*' fzf-preview 'eza -1 --color=always $realpath'
+# preview directory's content with eza when completing cd
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'tree $realpath'
+# zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+
+
+source $ZDOTDIR/fzf-tab.zsh
+
+unsetopt autocd
 precmd() {
     set_prompt
     set_alias
@@ -90,6 +98,5 @@ zle -N welcome
 # welcome "todo"
 
 
-set_fzf_theme ""
-
+eval "$(fzf --zsh)"
 #vi: ft=zsh
