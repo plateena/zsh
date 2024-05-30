@@ -7,8 +7,9 @@ fi
 
 source $ZDOTDIR/.zprofile
 
-export HISTSIZE=10000
-export SAVEHIST=10000
+export HISTSIZE=5000
+export SAVEHIST=$HISTSIZE
+export HISTDUP=erase
 
 if [[ ! -d $HOME/.cache ]]; then
     mkdir $HOME/.cache
@@ -22,12 +23,26 @@ fi
 
 export HISTFILE=$HOME/.cache/.zsh_history
 # History won't save duplicates.
-setopt HIST_IGNORE_ALL_DUPS
+# setopt HIST_IGNORE_ALL_DUPS
+
 # History won't show duplicates on search.
-setopt HIST_FIND_NO_DUPS
 
 setopt INC_APPEND_HISTORY
 setopt SHARE_HISTORY 
+
+setopt appendhistory
+setopt sharehistory
+setopt HIST_IGNORE_SPACE
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_SAVE_NO_DUPS
+setopt HIST_IGNORE_DUPS
+setopt HIST_FIND_NO_DUPS
+
+#completion styling
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' menu no
+zstyle ':fzf-tab:completion:cd:*' fzf-preview 'ls --color $realpath'
 
 unsetopt autocd
 
@@ -56,9 +71,9 @@ source $ZDOTDIR/env.zsh
 source $ZDOTDIR/completions.zsh
 source $ZDOTDIR/fzf.zsh
 source $ZDOTDIR/keybind.zsh
-source $ZDOTDIR/plugins.zsh
 source $ZDOTDIR/prompt.zsh
 source $ZDOTDIR/alias.zsh
+source $ZDOTDIR/plugins.zsh
 
 precmd() {
     set_prompt

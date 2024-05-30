@@ -103,7 +103,7 @@ set_alias () {
     # docker
     abbrev-alias de='docker exec -it $(docker ps | tail -n +2 | awk '\''{print $NF}'\'' | fzf | xargs echo -e )'
     abbrev-alias dsu='sandbox up '
-    abbrev-alias du='docker compose up '
+    abbrev-alias dcu='docker compose up '
 
     # npm
     abbrev-alias nrt='npm run test'
