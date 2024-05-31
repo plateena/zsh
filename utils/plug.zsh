@@ -25,6 +25,13 @@ plug () {
     then
         # echo "plugin $1 already install" 
         source_file "$1"
+        if [ -f "$ZDOTDIR/plugin_config/$1.zsh" ]
+        then
+            # echo "Load config for plugins $1"
+            source "$ZDOTDIR/plugin_config/$1.zsh"
+        # else
+            # echo "No config for $1"
+        fi
     else 
         echo "Installing plugin $1"
         git clone "git@github.com:$1.git"  "$plugin_path/$1" 

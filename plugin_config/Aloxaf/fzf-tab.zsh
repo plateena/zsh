@@ -24,11 +24,13 @@ zstyle ":fzf-tab:*" prefix "${FZF_TAB_OPTIONS_PREFIX_CHAR}"
 
 # default fzf settings to apply globally
 FZF_TAB_DEFAULT_FZF_FLAGS=(
-  "--height=~95%"
+  "--height=~75%"
   "--multi" # TODO: still not working
   "--no-exact"
 )
 zstyle ":fzf-tab:*" fzf-flags "${FZF_TAB_DEFAULT_FZF_FLAGS[@]}"
+# switch group using `<` and `>`
+zstyle ':fzf-tab:*' switch-group '<' '>'
 
 # clean up namespace
 unset FZF_TAB_SWITCH_GROUP_FORWARD_CHAR \

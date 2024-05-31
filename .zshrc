@@ -38,10 +38,6 @@ source $ZDOTDIR/fzf.zsh
 # Setup prompt visual
 source $ZDOTDIR/prompt.zsh
 
-# set vi binding
-# bindkey -v
-bindkey jk vi-cmd-mode
-
 # Change cursor shape for different vi modes.
 function zle-keymap-select () {
     case $KEYMAP in
@@ -62,4 +58,11 @@ echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
 # Plugins
+# plugin need to be load after compinit
+autoload -U compinit; compinit
+
+# set vi binding
+source $ZDOTDIR/keybind.zsh
+
 source $ZDOTDIR/plugins.zsh
+source $ZDOTDIR/alias.zsh
