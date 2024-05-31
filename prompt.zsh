@@ -102,6 +102,12 @@ set_left_prompt() {
 
 # Function to set the complete prompt
 set_prompt() {
+
+    # Add line before prompt
+    precmd() { 
+        echo -e "\033[40;33m${(r:$COLUMNS:: :)}"
+    }
+
     set_left_prompt
     set_right_prompt
 }

@@ -1,11 +1,7 @@
 #!/bin/bash
 
-# source $ZDOTDIR/zshrc.zsh
-
-# ENV 
-export HISTSIZE=5000
-export SAVEHIST=$HISTSIZE
-export HISTDUP=erase
+# set env and path
+source $ZDOTDIR/env.zsh
 
 # OPTIONS
 setopt INC_APPEND_HISTORY
