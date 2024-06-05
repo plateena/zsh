@@ -10,9 +10,27 @@ FD_EXCLUDE_GIT="--exclude .git"
 FD_EXCLUDE_HIDDEN="--hidden"
 FD_FILE_CMD="fd -t f $FD_EXCLUDE_HIDDEN $FD_EXCLUDE_GIT"
 FD_DIR_CMD="fd -t d $FD_EXCLUDE_HIDDEN $FD_EXCLUDE_GIT"
+
 export FZF_DEFAULT_COMMAND="fd $FD_FLAGS $FD_EXCLUDE_HIDDEN $FD_EXCLUDE_GIT"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="$FD_DIR_CMD"
+
+MY_FZF_DEFAULT_OTPS="
+--bind 'ctrl-d:change-prompt(Directories ▶ )+reload($FD_DIR_CMD)'
+--bind 'ctrl-f:change-prompt(Files ▶ )+reload($FD_FILE_CMD)'
+--bind 'ctrl-s:change-prompt(All ▶ )+reload($FZF_DEFAULT_COMMAND)'
+--bind 'ctrl-/:toggle-preview'
+--color header:italic
+--layout=reverse --info=inline --border --margin=1 --padding=1
+--bind '?:toggle-preview'
+--bind 'ctrl-a:select-all'
+"
+# --header 'Press CTRL-Y to copy command into clipboard'
+
+MY_FZF_COPY_OPTS="
+--bind 'ctrl-y:execute(readlink -f {} | xclip -selection clipboard)+abort'
+--bind 'ctrl-alt-y:execute-silent(xclip -selection clipboard {})+abort'
+"
 
 # ** completion
 # Use fd (https://github.com/sharkdp/fd) for listing path candidates.
@@ -41,23 +59,6 @@ _fzf_comprun() {
     *)            fzf --preview 'bat -n --color=always --line-range :500 {}' "$@" ;;
   esac
 }
-
-MY_FZF_DEFAULT_OTPS="
---bind 'ctrl-d:change-prompt(Directories ▶ )+reload($FD_DIR_CMD)'
---bind 'ctrl-f:change-prompt(Files ▶ )+reload($FD_FILE_CMD)'
---bind 'ctrl-s:change-prompt(All ▶ )+reload($FZF_DEFAULT_COMMAND)'
---bind 'ctrl-/:toggle-preview'
---header 'Press CTRL-Y to copy command into clipboard'
---color header:italic
---layout=reverse --info=inline --border --margin=1 --padding=1
---bind '?:toggle-preview'
---bind 'ctrl-a:select-all'
-"
-
-MY_FZF_COPY_OPTS="
---bind 'ctrl-y:execute(readlink -f {} | xclip -selection clipboard)+abort'
---bind 'ctrl-alt-y:execute-silent(xclip -selection clipboard {})+abort'
-"
 
 export FZF_CTRL_T_OPTS="
 --preview 'bat -n --color=always --line-range :500 {}'
