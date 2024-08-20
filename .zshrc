@@ -1,7 +1,5 @@
 #!/bin/bash
 
-neofetch
-
 # set env and path
 source $ZDOTDIR/env.zsh
 
