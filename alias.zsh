@@ -77,7 +77,6 @@ set_alias () {
     abbrev-alias gbd='git branch -d $(git branch | fzf | xargs echo -e)'
     abbrev-alias gbm='git branch -m '
     abbrev-alias gsb='git switch $(git branch -r | fzf | sed -e '\''s/origin\///g'\'' | xargs echo -e)'
-    abbrev-alias gbm='git branch -m '
     abbrev-alias gcb="git checkout -b"
     abbrev-alias gcm='git checkout master'
     abbrev-alias gco='git checkout $(git branch | fzf | xargs echo -e)'
@@ -90,11 +89,9 @@ set_alias () {
     abbrev-alias gps='git push origin $(git branch | sed '\''s/[* ]//g'\'' | fzf | xargs echo -e)'
     abbrev-alias gpsc='git push origin $(git branch --show-current | xargs echo -e)'
     abbrev-alias gst="git status"
-    abbrev-alias gp="git pull"
     abbrev-alias gpb='git pull origin $(git branch | fzf | awk '\''{print $2}'\'' | xargs echo -e)'
     abbrev-alias gpc='git pull origin $(git branch --show-current | xargs echo -e)'
     abbrev-alias gpo='git pull origin'
-    abbrev-alias gsb='git switch $(git branch -r | sed '\''s/origin\///g'\'' | fzf | xargs echo -e)'
     # check https://git-scm.com/docs/pretty-formats
     abbrev-alias glp='git log --pretty=format:"%C(auto) %h %>(13,trunc)%ch %Cblue%cn%C(auto)%d %s"'
     abbrev-alias gcn='git config user.name '
@@ -102,8 +99,8 @@ set_alias () {
 
     # docker
     abbrev-alias de='docker exec -it $(docker ps | tail -n +2 | awk '\''{print $NF}'\'' | fzf | xargs echo -e )'
-    abbrev-alias dsu='sandbox up '
     abbrev-alias dcu='docker compose up '
+    abbrev-alias dps='docker ps'
 
     # npm
     abbrev-alias nrt='npm run test'
