@@ -112,6 +112,12 @@ set_alias () {
     abbrev-alias ni='npm instal'
     abbrev-alias nis='npm instal --save '
     abbrev-alias nid='npm install --save-dev '
+
+    # Timewarrior
+    abbrev-alias tmsum='timew summary :ids'
+    abbrev-alias tmweek='timew week'
+    abbrev-alias tmday='timew day'
+    abbrev-alias tmman='timew start "Works management"'
 }
 
 # Initialize common aliases

@@ -2,6 +2,10 @@
 
 # set env and path
 source $ZDOTDIR/env.zsh
+# Add custom directory to fpath
+fpath=(~/.config/zsh/completions $fpath)
+
+autoload -U compinit; compinit
 
 # OPTIONS
 setopt INC_APPEND_HISTORY
@@ -62,3 +66,4 @@ source $ZDOTDIR/keybind.zsh
 
 source $ZDOTDIR/plugins.zsh
 source $ZDOTDIR/alias.zsh
+

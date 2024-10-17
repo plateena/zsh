@@ -35,6 +35,8 @@ add_path "$HOME/.local/bin"
 add_path "$HOME/plateena/bin"
 add_path "$HOME/bin"
 add_path "$DOTFILE/npm-global/bin"
+add_path "$HOME/.rbenv/versions/3.0.4/bin"
+add_path "$HOME/.rbenv/bin"
 
 if [[ -n $HOME/.local/share/firefox/firefox ]]; then
     add_path "$HOME/.local/share/firefox/firefox"
@@ -47,3 +49,5 @@ fi
 # color can be found https://upload.wikimedia.org/wikipedia/commons/1/15/Xterm_256color_chart.svg
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240"
 export MYCLI_HISTFILE=$XDG_CACHE_HOME/mycli-history
+
+eval "$(rbenv init -)"
