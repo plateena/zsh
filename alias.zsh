@@ -114,6 +114,7 @@ set_alias () {
     abbrev-alias nid='npm install --save-dev '
 
     # Timewarrior
+    abbrev-alias tm='timew'
     abbrev-alias tmsum='timew summary :ids'
     abbrev-alias tmweek='timew week'
     abbrev-alias tmday='timew day'
