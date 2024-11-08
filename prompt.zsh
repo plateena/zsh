@@ -22,6 +22,13 @@ exclamation_icon() {
     printf "\uf12a" # fat exclamation
 }
 
+prompt_icon() {
+    # moon icon
+    # printf "\ue3cc"
+    # 󰣇
+    printf "󰣇 \uf4b5 󰶻"
+}
+
 # Function to display the git branch information in the prompt
 git_branch_name() {
     local branch=$(git branch --show-current)
@@ -72,15 +79,16 @@ is_inside_git() {
 get_current_dir() {
     dir="%~"
     if is_inside_git; then
-        echo shorten_dir $(git rev-parse --show-toplevel)
+        echo $(shorten_dir $(git rev-parse --show-toplevel))
     else
-        echo shorten_dir $dir
+        echo $(shorten_dir $dir)
     fi
 }
 
 # Function to set the right prompt
 set_right_prompt() {
     rp=""
+    rp+="%F{031}%F{067} $(get_current_dir) "
     rp+="%F{015}%F{015} %* "
     rp+="%F{031}%F{039} %D "
     RPROMPT="$rp%K{none}%F{none}"
@@ -89,15 +97,17 @@ set_right_prompt() {
 # Function to set the left prompt
 set_left_prompt() {
     p=""
-    p+="%K{015} %B%(?.%F{035}$(check_icon).%F{red}$(exclamation_icon))%b %K{black}%F{015}"
+    # p+="%K{015} %B%(?.%F{035}$(check_icon).%F{red}$(exclamation_icon))%b %K{black}%F{015}"
 
     if is_inside_git; then
-        p+="$(git_branch_name)"
+        # p+="$(git_branch_name)"
     else
-        p+="%K{$black}%F{green} %~ %K{039}%F{$black}"
+        # p+="%K{$black}%F{green} %~ %K{039}%F{$black}"
     fi
 
-    PROMPT="$p%K{039}%F{$black}%B %# %K{none}%F{039}%K{none}%F{none} "
+    # PROMPT="$p%K{039}%F{$black}%B %# %K{none}%F{039}%K{none}%F{none} "
+    # PROMPT="%(?.%B.%F{red}$(exclamation_icon)) %K{none}%F{047}$(printf '\uf4b5') %B%K{none}%F{none} "
+    PROMPT="%K{none} %(?.%F{047}.%F{red})$(printf '\uf4b5') %B%K{none}%F{none} "
 }
 
 # Function to set the complete prompt
@@ -108,7 +118,8 @@ set_prompt() {
 
 # Add line before prompt
 precmd() { 
-    echo -e "\033[40;33m${(r:$COLUMNS:: :)}"
+    # echo -e "\033[40;33m${(r:$COLUMNS:: :)}"
+    echo -e "${(r:$COLUMNS:::)}"
     # Run the set_prompt function
     set_prompt
 }

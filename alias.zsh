@@ -119,6 +119,18 @@ set_alias () {
     abbrev-alias tmweek='timew week'
     abbrev-alias tmday='timew day'
     abbrev-alias tmman='timew start "Works management"'
+
+    # Taskwarrior
+    abbrev-alias tsac='task +ACTIVE'
+    abbrev-alias tsdep='(){task $1 modify -ToDo -InProgress -CodeReview +Deployed}'
+    abbrev-alias tscr='(){task $1 modify -ToDo -InProgress +CodeReview -Deployed}'
+    abbrev-alias tsip='(){task $1 modify -ToDo +InProgress -CodeReview -Deployed}'
+
+    # work
+    abbrev-alias dcw='docker compose exec -it web '
+    abbrev-alias dcspec='docker compose exec -it web rspec --fail-fast ./spec/'
+    abbrev-alias dccon='docker compose exec -it web rails c'
+
 }
 
 # Initialize common aliases
