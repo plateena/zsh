@@ -22,7 +22,11 @@ export XDG_STATE_HOME=$HOME/.local/state
 
 export NPM_CONFIG_USERCONFIG=$HOME/$DOTFILE/.npmrc
 export TASKRC=$XDG_CONFIG_HOME/task/taskrc 
-
+export LANG=en_GB.UTF-8
+export LC_ALL=en_GB.UTF-8
+export LC_MONETARY=en_GB.UTF-8
+# export ZSH_PLUGINS_ALIAS_TIPS_FORCE=1
+:
 add_path "/bin"
 add_path "/usr/bin"
 add_path "/usr/sbin"

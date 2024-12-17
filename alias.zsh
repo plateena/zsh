@@ -115,16 +115,20 @@ set_alias () {
 
     # Timewarrior
     abbrev-alias tm='timew'
-    abbrev-alias tmsum='timew summary :ids'
-    abbrev-alias tmweek='timew week'
-    abbrev-alias tmday='timew day'
-    abbrev-alias tmman='timew start "Works management"'
+    abbrev-alias tms='timew summary :ids'
+    abbrev-alias tmw='timew week'
+    abbrev-alias tmd='timew day'
+    abbrev-alias tmes='(){timew modify start @1 $1 :adjust }'
+    abbrev-alias tmee='(){timew modify end @1 $1 :adjust }'
+    abbrev-alias tmm='timew start "Works management"'
 
     # Taskwarrior
+    abbrev-alias ts='task '
     abbrev-alias tsac='task +ACTIVE'
     abbrev-alias tsdep='(){task $1 modify -ToDo -InProgress -CodeReview +Deployed}'
     abbrev-alias tscr='(){task $1 modify -ToDo -InProgress +CodeReview -Deployed}'
     abbrev-alias tsip='(){task $1 modify -ToDo +InProgress -CodeReview -Deployed}'
+    abbrev-alias tstd='(){task $1 modify +ToDo -InProgress -CodeReview -Deployed}'
 
     # work
     abbrev-alias dcw='docker compose exec -it web '
