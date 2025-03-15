@@ -1,0 +1,62 @@
+#compdef tmtr
+
+_tmtr() {
+  local -a opts dates times hints tags projects
+
+  opts=(
+    '-h[Show help message]'
+    '--help[Show help message]'
+    '-v[Enable verbose output]'
+    '--verbose[Enable verbose output]'
+    '-d[Show command without execution]'
+    '--dry-run[Show command without execution]'
+    '--config[Create default config file]'
+  )
+
+  dates=(
+    "$(date +%F)" "+1" "-1" "+2" "-2"
+    "m1" "m2" "m3" "m4" "m5" "m6" "m7" "m8" "m9" "m10" "m11" "m12"
+  )
+
+  times=(
+    "00:00" "00:30" "01:00" "01:30" "02:00" "02:30" "03:00" "03:30"
+    "04:00" "04:30" "05:00" "05:30" "06:00" "06:30" "07:00" "07:30"
+    "08:00" "08:30" "09:00" "09:30" "10:00" "10:30" "11:00" "11:30"
+    "12:00" "12:30" "13:00" "13:30" "14:00" "14:30" "15:00" "15:30"
+    "16:00" "16:30" "17:00" "17:30" "18:00" "18:30" "19:00" "19:30"
+    "20:00" "20:30" "21:00" "21:30" "22:00" "22:30" "23:00" "23:30"
+  )
+
+  hints=( ":adjust" ":quiet" ":gap" ":split" ":merge" )
+
+  if [[ -f ~/.dotfiles/.tmtrrc ]]; then
+      tags=("${(@s:,:)$(grep -E '^autoTags=' ~/.dotfiles/.tmtrrc | cut -d= -f2 | sed 's/^"//')}")
+      projects=($(awk '/^projects=/ {flag=1; next} /^)/ {flag=0} flag {print}' ~/.dotfiles/.tmtrrc | cut -d: -f1 | sed 's/^[[:space:]]*"//'))
+  fi
+
+  (( ${#tags[@]} )) || tags=()
+  (( ${#projects[@]} )) || projects=()
+
+  _fzf_complete_tmtr() {
+    local input
+    input=$(printf "%s\n" "$@" | fzf --height=15% --layout=reverse --border --no-info)
+    [[ -n "$input" ]] && compadd -- "$input"
+  }
+
+  _arguments -s -S \
+    $opts \
+    '1:Date:->dates' \
+    '2:Start Time:->times' \
+    '3:End Time:->times' \
+    '4::Hint (optional), Tag, or Project:->hints' \
+    '5:Tag or Project:->tags'
+
+  case $state in
+    dates) _fzf_complete_tmtr "${dates[@]}" ;;
+    times) _fzf_complete_tmtr "${times[@]}" ;;
+    hints) _fzf_complete_tmtr "${hints[@]}" "${tags[@]}" "${projects[@]}" ;;
+    tags) _fzf_complete_tmtr "${tags[@]}" "${projects[@]}" ;;
+  esac
+}
+
+compdef _tmtr tmtr

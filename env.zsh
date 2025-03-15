@@ -1,13 +1,13 @@
 #!/bin/bash
 
-# ENV 
+# ENV
 export HISTSIZE=5000
 export SAVEHIST=$HISTSIZE
 export HISTDUP=erase
 
 add_path() {
     if [[ ":$PATH:" != *":$1:"* ]]; then
-        PATH="${PATH}:$1" 
+        PATH="${PATH}:$1"
     # else
         # echo "$1 already exist in PATH"
     fi
@@ -20,11 +20,17 @@ export XDG_CACHE_HOME=$HOME/.cache
 export XDG_DATA_HOME=$HOME/.local/share
 export XDG_STATE_HOME=$HOME/.local/state
 
+export NVIM_LOG_LEVEL=debug
+export NVIM_LOG_FILE=~/nvim.log
+
 export NPM_CONFIG_USERCONFIG=$HOME/$DOTFILE/.npmrc
-export TASKRC=$XDG_CONFIG_HOME/task/taskrc 
+export TASKRC=$XDG_CONFIG_HOME/task/taskrc
 export LANG=en_GB.UTF-8
 export LC_ALL=en_GB.UTF-8
 export LC_MONETARY=en_GB.UTF-8
+
+export DOCKER_BUILDKIT=1
+export COMPOSE_DOCKER_CLI_BUILD=1
 # export ZSH_PLUGINS_ALIAS_TIPS_FORCE=1
 :
 add_path "/bin"
@@ -38,10 +44,11 @@ add_path "/snap/bin"
 add_path "$HOME/.local/bin"
 add_path "$HOME/plateena/bin"
 add_path "$HOME/bin"
-add_path "$HOME/bin/npm-global/bin"
 add_path "$DOTFILE/npm-global/bin"
 add_path "$HOME/.rbenv/versions/3.0.4/bin"
 add_path "$HOME/.rbenv/bin"
+add_path "$HOME/.config/herd-lite/bin"
+add_path "$HOME/.config/composer/vendor/bin"
 
 if [[ -n $HOME/.local/share/firefox/firefox ]]; then
     add_path "$HOME/.local/share/firefox/firefox"

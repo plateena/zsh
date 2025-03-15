@@ -67,7 +67,7 @@ set_alias () {
     abbrev-alias tas='tmux attach-session -t $(tmux ls | sed -e '\''s/://'\'' | awk '\''{print $1}'\'' | fzf | xargs echo -e)'
     abbrev-alias tks='tmux kill-session -t $(tmux ls | sed -e '\''s/://'\'' | awk '\''{print $1}'\'' | fzf | xargs echo -e)'
     abbrev-alias tls='tmux ls'
-    
+
     # git
     abbrev-alias gfo='git fetch origin'
     abbrev-alias gpl='git pull'
@@ -98,6 +98,8 @@ set_alias () {
     abbrev-alias gce='git config user.email '
 
     # docker
+    abbrev-alias dc='docker compose '
+    abbrev-alias dcl='docker compose logs $(docker ps | tail -n +2 | awk '\''{print $NF}'\'' | fzf | xargs echo -e )'
     abbrev-alias de='docker exec -it $(docker ps | tail -n +2 | awk '\''{print $NF}'\'' | fzf | xargs echo -e )'
     abbrev-alias dcu='docker compose up '
     abbrev-alias dps='docker ps'
@@ -120,21 +122,23 @@ set_alias () {
     abbrev-alias tmd='timew day'
     abbrev-alias tmes='(){timew modify start @1 $1 :adjust }'
     abbrev-alias tmee='(){timew modify end @1 $1 :adjust }'
-    abbrev-alias tmm='timew start "Works management"'
+    abbrev-alias tmman='(){timew start "${1:-Works management}" "work.management"}'
+    abbrev-alias tmmet='(){timew start "${1:-Meeting}" "work.meeting"}'
 
     # Taskwarrior
-    abbrev-alias ts='task '
+    # abbrev-alias ts='task '
     abbrev-alias tsac='task +ACTIVE'
-    abbrev-alias tsdep='(){task $1 modify -ToDo -InProgress -CodeReview +Deployed}'
-    abbrev-alias tscr='(){task $1 modify -ToDo -InProgress +CodeReview -Deployed}'
-    abbrev-alias tsip='(){task $1 modify -ToDo +InProgress -CodeReview -Deployed}'
-    abbrev-alias tstd='(){task $1 modify +ToDo -InProgress -CodeReview -Deployed}'
+    abbrev-alias tsdep='(){task $1 modify -ToDo -InProgress -CodeReview +Deployed -UAT}'
+    abbrev-alias tscr='(){task $1 modify -ToDo -InProgress +CodeReview -Deployed -UAT}'
+    abbrev-alias tsip='(){task $1 modify -ToDo +InProgress -CodeReview -Deployed -UAT}'
+    abbrev-alias tstd='(){task $1 modify +ToDo -InProgress -CodeReview -Deployed -UAT}'
+    abbrev-alias tsut='(){task $1 modify -ToDo -InProgress -CodeReview -Deployed +UAT}'
+    abbrev-alias tspr='(){task $1 modify -ToDo -InProgress -CodeReview -Deployed -UAT +PendingRelease}'
 
     # work
-    abbrev-alias dcw='docker compose exec -it web '
-    abbrev-alias dcspec='docker compose exec -it web rspec --fail-fast ./spec/'
-    abbrev-alias dccon='docker compose exec -it web rails c'
-
+    abbrev-alias dcw='docker compose exec -it erp '
+    abbrev-alias dcspec='docker compose exec -it erp rspec --fail-fast ./spec/'
+    abbrev-alias dccon='docker compose exec -it erp rails c'
 }
 
 # Initialize common aliases
