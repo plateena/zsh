@@ -9,7 +9,7 @@ autoload -U compinit; compinit
 
 # OPTIONS
 setopt INC_APPEND_HISTORY
-setopt SHARE_HISTORY 
+setopt SHARE_HISTORY
 setopt appendhistory
 setopt sharehistory
 setopt HIST_IGNORE_SPACE

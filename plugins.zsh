@@ -16,4 +16,8 @@ plug "djui/alias-tips"
 
 eval $(thefuck --alias shoot)
 
+tmrw() {
+    timew export work.erp $(w2d $1)
+}
+
 source_file
