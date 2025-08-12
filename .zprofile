@@ -34,7 +34,7 @@ function show_tux_fortune() {
 # Function: show_stegosaurus_fortune
 # Displays a fortune stegosaurus saying
 function show_stegosaurus_fortune() {
-    fortune | cowsay -f stegosaurus 
+    fortune | cowsay -f stegosaurus
 }
 
 # Ensure the existence of the greetings directory and todo.md file
@@ -75,11 +75,11 @@ function show_global_todo() {
         source "$HOME/.config/zsh/ascii/todo.zsh"
 
         echo ""
-        
+
         # Display the todo list from vimwiki
         tail --lines=+2 "$HOME/vimwiki/Todo.md"
         cat "$todo_file"
-    else 
+    else
         echo "${red}Error:${reset} Can't display todo list:"
         echo "${red}File ${white}$todo_file ${red}does not exist!"
     fi

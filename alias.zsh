@@ -52,7 +52,7 @@ set_alias () {
     abbrev-alias cl='clear'
     abbrev-alias ecp="echo $PATH | sed 's/:/\\n/g' | fzf | xargs echo -e"
     abbrev-alias env='env | fzf | xargs ehco -e'
-    abbrev-alias his='history'
+    abbrev-alias his='history | fzf | xargs echo -e'
     abbrev-alias ll='eza --color=always --icons=always -l'
     abbrev-alias lla='eza --color=always --icons=always -la'
     abbrev-alias lse='eza --color=always --icons=always'
@@ -99,8 +99,8 @@ set_alias () {
 
     # docker
     abbrev-alias dc='docker compose '
-    abbrev-alias dcl='docker compose logs $(docker ps | tail -n +2 | awk '\''{print $NF}'\'' | fzf | xargs echo -e )'
-    abbrev-alias de='docker exec -it $(docker ps | tail -n +2 | awk '\''{print $NF}'\'' | fzf | xargs echo -e )'
+    abbrev-alias dcl='docker logs $(docker ps | tail -n +2 | awk '\''{print $NF}'\'' | fzf | xargs echo -e )'
+    abbrev-alias dex='docker exec -it $(docker ps | tail -n +2 | awk '\''{print $NF}'\'' | fzf | xargs echo -e )'
     abbrev-alias dcu='docker compose up '
     abbrev-alias dps='docker ps'
 
@@ -127,6 +127,8 @@ set_alias () {
 
     # Taskwarrior
     # abbrev-alias ts='task '
+    abbrev-alias task='taskwrap'
+    abbrev-alias ts='task '
     abbrev-alias tsac='task +ACTIVE'
     abbrev-alias tsdep='(){task $1 modify -ToDo -InProgress -CodeReview +Deployed -UAT}'
     abbrev-alias tscr='(){task $1 modify -ToDo -InProgress +CodeReview -Deployed -UAT}'
@@ -134,11 +136,6 @@ set_alias () {
     abbrev-alias tstd='(){task $1 modify +ToDo -InProgress -CodeReview -Deployed -UAT}'
     abbrev-alias tsut='(){task $1 modify -ToDo -InProgress -CodeReview -Deployed +UAT}'
     abbrev-alias tspr='(){task $1 modify -ToDo -InProgress -CodeReview -Deployed -UAT +PendingRelease}'
-
-    # work
-    abbrev-alias dcw='docker compose exec -it erp '
-    abbrev-alias dcspec='docker compose exec -it erp rspec --fail-fast ./spec/'
-    abbrev-alias dccon='docker compose exec -it erp rails c'
 }
 
 # Initialize common aliases
