@@ -101,6 +101,7 @@ set_alias () {
     abbrev-alias dc='docker compose '
     abbrev-alias dcl='docker logs $(docker ps | tail -n +2 | awk '\''{print $NF}'\'' | fzf | xargs echo -e )'
     abbrev-alias dex='docker exec -it $(docker ps | tail -n +2 | awk '\''{print $NF}'\'' | fzf | xargs echo -e )'
+    abbrev-alias dat='docker attach $(docker ps | tail -n +2 | awk '\''{print $NF}'\'' | fzf | xargs echo -e )'
     abbrev-alias dcu='docker compose up '
     abbrev-alias dps='docker ps'
 
@@ -136,6 +137,9 @@ set_alias () {
     abbrev-alias tstd='(){task $1 modify +ToDo -InProgress -CodeReview -Deployed -UAT}'
     abbrev-alias tsut='(){task $1 modify -ToDo -InProgress -CodeReview -Deployed +UAT}'
     abbrev-alias tspr='(){task $1 modify -ToDo -InProgress -CodeReview -Deployed -UAT +PendingRelease}'
+
+    # Work Logs
+    abbrev-alias wl='log_work'
 }
 
 # Initialize common aliases
