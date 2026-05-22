@@ -9,6 +9,9 @@ zle -N vi-yank-x-selection
 bindkey '^[Y' vi-yank-x-selection
 bindkey -a '^[Y' vi-yank-x-selection
 
+bindkey -M vicmd 'k' up-history
+bindkey -M vicmd 'j' down-history
+
 #Edit line in nvim
 # autoload edit-commnd-line
 # zle -N edit-commnd-line

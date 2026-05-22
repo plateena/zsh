@@ -74,4 +74,4 @@ shorten_dir() {
     echo "$(echo $newdir | sed 's/\/$//' )"
 }
 
-# shorten_dir "/home/zack/.sandbox/.repositories/codes/hws-console/src/app/View/Components" "100"
+# shorten_dir "/home/$USER/.sandbox/.repositories/codes/hws-console/src/app/View/Components" "100"

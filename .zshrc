@@ -1,69 +1,68 @@
-#!/bin/bash
+#!/bin/zsh
 
-# set env and path
+# Kiro CLI pre block. Keep at the top of this file.
+[[ -f "${HOME}/.local/share/kiro-cli/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/.local/share/kiro-cli/shell/zshrc.pre.zsh"
+
+# --- Environment ---
 source $ZDOTDIR/env.zsh
-# Add custom directory to fpath
+
+# Add custom completions
 fpath=(~/.config/zsh/completions $fpath)
 
-autoload -U compinit; compinit
-
-# OPTIONS
-setopt INC_APPEND_HISTORY
-setopt SHARE_HISTORY
-setopt appendhistory
-setopt sharehistory
-setopt HIST_IGNORE_SPACE
-setopt HIST_IGNORE_ALL_DUPS
-setopt HIST_SAVE_NO_DUPS
-setopt HIST_IGNORE_DUPS
-setopt HIST_FIND_NO_DUPS
-
-# Setup cache and .zsh_history
-if [[ ! -d $HOME/.cache ]]; then
-    mkdir $HOME/.cache
-fi
-if [[ ! -d $HOME/.config ]]; then
-    mkdir $HOME/.config
-fi
-if [[ ! -d $HOME/.local ]]; then
-    mkdir $HOME/.local
-fi
-
+# --- History Setup (atuin handles search; this is fallback/file-based) ---
 export HISTFILE=$HOME/.cache/.zsh_history
+export HISTSIZE=10000
+export SAVEHIST=10000
 
+setopt hist_ignore_dups
+setopt hist_ignore_space
+setopt hist_save_no_dups
+setopt appendhistory
 
-# FZF for fuzzy finder
+# Ensure history file exists
+mkdir -p ${HISTFILE:h}
+
+# --- Cache / Config dirs ---
+mkdir -p $HOME/.cache $HOME/.config $HOME/.local
+
+# --- FZF & Prompt ---
 source $ZDOTDIR/fzf.zsh
-
-# Setup prompt visual
 source $ZDOTDIR/prompt.zsh
 
-# Change cursor shape for different vi modes.
-function zle-keymap-select () {
-    case $KEYMAP in
-        vicmd) echo -ne '\e[1 q';; # block
-        viins|main) echo -ne '\e[5 q';; # beam
-    esac
+# --- Cursor Shape for vi mode ---
+function zle-keymap-select {
+  case $KEYMAP in
+  vicmd) echo -ne '\e[1 q' ;;        # block
+  viins | main) echo -ne '\e[5 q' ;; # beam
+  esac
 }
-
 zle -N zle-keymap-select
-zle-line-init() {
-    zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
-    echo -ne "\e[5 q"
+
+function zle-line-init {
+  zle -K viins
+  echo -ne '\e[5 q'
 }
-
 zle -N zle-line-init
-echo -ne '\e[5 q' # Use beam shape cursor on startup.
 
-preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
+preexec() { echo -ne '\e[5 q'; }
+echo -ne '\e[5 q' # initial beam cursor
 
-# Plugins
-# plugin need to be load after compinit
-autoload -U compinit; compinit
-
-# set vi binding
+# --- Keybinds, Plugins, Aliases ---
 source $ZDOTDIR/keybind.zsh
-
 source $ZDOTDIR/plugins.zsh
 source $ZDOTDIR/alias.zsh
 
+# --- Compinit (after plugins so all completions are registered) ---
+autoload -Uz compinit
+if [[ -n $ZDOTDIR/.zcompdump(#qN.mh+24) ]]; then
+  compinit -d "$ZDOTDIR/.zcompdump"
+else
+  compinit -C -d "$ZDOTDIR/.zcompdump"
+fi
+
+. "$HOME/.atuin/bin/env"
+
+eval "$(atuin init zsh)"
+
+# Kiro CLI post block. Keep at the bottom of this file.
+[[ -f "${HOME}/.local/share/kiro-cli/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/.local/share/kiro-cli/shell/zshrc.post.zsh"

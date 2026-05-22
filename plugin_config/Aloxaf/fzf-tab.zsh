@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 # don't sort git checkout output
 zstyle ":completion:*:git-checkout:*" sort false
 

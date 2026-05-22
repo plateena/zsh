@@ -38,14 +38,14 @@ git_branch_name() {
     local dir=$(git rev-parse --show-toplevel)
 
     # Check if the git status has differences
-    if [[ $(git diff) ]]; then
+    if ! git diff --quiet 2>/dev/null; then
         bg="196"
     else
         bg="166"
     fi
 
     # Check if the current git status is clean
-    if [ -z "$(git status --porcelain)" ]; then
+    if git diff --quiet HEAD 2>/dev/null && [ -z "$(git status --porcelain --untracked-files=no 2>/dev/null)" ]; then
         bg="036"
     fi
 
@@ -72,7 +72,7 @@ git_branch_name() {
 
 # Function to check if the current shell is inside a git repository
 is_inside_git() {
-    git status &>/dev/null
+    git rev-parse --is-inside-work-tree &>/dev/null
 }
 
 # Function to get the current directory

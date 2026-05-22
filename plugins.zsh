@@ -1,8 +1,8 @@
-#!/bin/bash
+#!/bin/zsh
 
 source $ZDOTDIR/utils/plug.zsh
 
-echo "" > $ZDOTDIR/data.md
+echo "" >$ZDOTDIR/data.md
 
 plug "Aloxaf/fzf-tab"
 plug "zsh-users/zsh-syntax-highlighting"
@@ -13,11 +13,14 @@ plug "djui/alias-tips"
 # plug "ohmyzsh/copybuffer"
 # plug "ohmyzsh/dirhistory"
 # plug "unixorn/git-extra-commands"
-
-eval $(thefuck --alias shoot)
-
-tmrw() {
-    timew export work.erp $(w2d $1)
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+pyenv() {
+  unset -f pyenv
+  eval "$(command pyenv init - zsh)"
+  eval "$(command pyenv virtualenv-init -)"
+  pyenv "$@"
 }
 
-source_file
+eval "$(zoxide init zsh)"
+

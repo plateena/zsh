@@ -1,0 +1,48 @@
+#!/bin/zsh
+
+# ANSI color codes
+red="\e[0;91m"
+green="\e[0;92m"
+white="\e[0;97m"
+reset="\e[0m"
+
+show_neofetch() { neofetch }
+show_cow_fortune() { fortune | cowsay -pn }
+show_tux_fortune() { fortune | cowsay -f tux }
+show_stegosaurus_fortune() { fortune | cowsay -f stegosaurus }
+
+show_and_update_todo() {
+    local todo_file=$HOME/.config/zsh/greetings/todo.md
+    echo "" > $todo_file
+    echo -e $(ag --color --color-match '0;94m\e[1' --group "@?TODO(?=.+zainundin)" ./ --ignore todo.md --ignore-dir snippet --ignore-dir mysql/data --ignore-dir mysql8/data --ignore-dir sphinx/data 2>&/dev/null | sed 's/^/\\n/') > $todo_file
+    source "$HOME/.config/zsh/ascii/todo.zsh"
+    cat "$todo_file"
+}
+
+show_global_todo() {
+    local todo_file=$HOME/.config/zsh/greetings/todo.md
+    if [[ ! -f $todo_file ]]; then
+        echo "${red}Error:${reset} File ${white}$todo_file ${red}does not exist!"
+        return 1
+    fi
+    echo "" > $todo_file
+    echo -e $(ag --color --color-match '0;94m\e[1' --group "@?TODO(?=.+zainundin)" ./ --ignore todo.md --ignore-dir snippet --ignore-dir mysql/data --ignore-dir mysql8/data --ignore-dir sphinx/data 2>&/dev/null | sed 's/^/\\n/') > $todo_file
+    source "$HOME/.config/zsh/ascii/todo.zsh"
+    echo ""
+    tail --lines=+2 "$HOME/vimwiki/Todo.md"
+    cat "$todo_file"
+}
+
+# Ensure greetings dir exists
+mkdir -p "$HOME/.config/zsh/greetings"
+[[ ! -f "$HOME/.config/zsh/greetings/todo.md" ]] && touch "$HOME/.config/zsh/greetings/todo.md"
+
+case "$1" in
+    neofetch)       show_neofetch ;;
+    fcow)           show_cow_fortune ;;
+    ftux)           show_tux_fortune ;;
+    fsor)           show_stegosaurus_fortune ;;
+    todo)           show_and_update_todo ;;
+    global-todo)    show_global_todo ;;
+    *)              ;; # no default action
+esac
