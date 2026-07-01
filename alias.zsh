@@ -104,6 +104,9 @@ set_alias() {
   abbrev-alias dcu='docker compose up '
   abbrev-alias dps='docker ps'
 
+  # aws local
+  abbrev-alias laws='aws --endpoint-url http://localhost:4566 --region ap-southeast-1 --profile ministack'
+
   # npm
   abbrev-alias nrt='npm run test'
   abbrev-alias nrd='npm run dev'
@@ -155,7 +158,7 @@ set_alias() {
   abbrev-alias cd='z'
   abbrev-alias cat='bat'
 
-  abbrev-alias susu='sudo apt update -y && sudo apt update -y && sudo apt dist-upgrade -y && sudo apt autoremove --purge'
+  abbrev-alias susu='sudo apt update -y && sudo apt upgrade -y && sudo apt dist-upgrade -y && sudo apt autoremove --purge'
 }
 
 tmrw() { timew export work.erp $(w2d $1) }

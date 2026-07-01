@@ -29,8 +29,8 @@ MY_FZF_DEFAULT_OTPS="
 # --header 'Press CTRL-Y to copy command into clipboard'
 
 MY_FZF_COPY_OPTS="
---bind 'ctrl-y:execute(readlink -f {} | xclip -selection clipboard)+abort'
---bind 'ctrl-alt-y:execute-silent(xclip -selection clipboard {})+abort'
+--bind 'ctrl-y:execute(readlink -f {} | wl-copy)+abort'
+--bind 'ctrl-alt-y:execute-silent(wl-copy < {})+abort'
 "
 
 # ** completion
@@ -66,15 +66,15 @@ export FZF_CTRL_T_OPTS="
 $MY_FZF_COPY_OPTS
 --prompt='All ▶ '
 "
-export FZF_CTRL_C_OPTS="
+export FZF_ALT_C_OPTS="
 --preview 'eza --tree --color=always --icons=always {} | head 200'
 $MY_FZF_COPY_OPTS
---prompt='Files ▶ '
+--prompt='Dirs ▶ '
 "
 export FZF_CTRL_R_OPTS="
 --prompt='Command ▶ '
 --preview 'echo {}' --preview-window up:3:hidden:wrap
---bind 'ctrl-y:execute-silent(echo -n {2..} | xclip -selection clipboard)+abort'
+--bind 'ctrl-y:execute-silent(echo -n {2..} | wl-copy)+abort'
 "
 
 export FZF_DEFAULT_OPTS="$MY_FZF_DEFAULT_OTPS"

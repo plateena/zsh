@@ -1,5 +1,8 @@
 
 
+# Autoload ~/.env (secrets/credentials)
+[[ -f "$HOME/.env" ]] && set -a && source "$HOME/.env" && set +a
+
 export UID=$(id -u)
 export GID=$(id -g)
 
@@ -27,12 +30,7 @@ export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 
-export LARAVEL_BASE_IMAGE="471112561530.dkr.ecr.ap-southeast-1.amazonaws.com/php-laravel-compat"
-
-export NVIM_LOG_LEVEL=debug
-export NVIM_LOG_FILE="/var/log/nvim.log"
-
-export NPM_CONFIG_USERCONFIG="$HOME/$DOTFILE/.npmrc"
+export NPM_CONFIG_USERCONFIG="$DOTFILE/.npmrc"
 export TASKRC="$XDG_CONFIG_HOME/task/taskrc"
 
 export LANG="en_GB.UTF-8"
@@ -48,7 +46,8 @@ export CHEAT_CONFIG_PATH="~/.config/cheat/conf.yml"
 export GEM_HOME="$HOME/.local/share/gems"
 export GEM_PATH="$HOME/.local/share/gems"
 
-export PATH="$PATH:$(go env GOPATH)/bin"
+export GOPATH="${GOPATH:-$HOME/go}"
+add_path "$GOPATH/bin"
 
 add_path "/bin"
 add_path "/usr/bin"
@@ -66,14 +65,12 @@ add_path "$HOME/plateena/bin"
 add_path "$HOME/bin"
 add_path "$DOTFILE/npm-global/bin"
 
-add_path "$HOME/.rbenv/versions/3.0.4/bin"
 add_path "$HOME/.rbenv/bin"
 
 add_path "$HOME/.config/herd-lite/bin"
 add_path "$HOME/.config/composer/vendor/bin"
 add_path "$HOME/.local/share/nvim/mason/bin"
 add_path "$HOME/.local/share/gems/bin"
-add_path "$HOME/.local/share/gem/ruby/3.2.0/bin"
 
 [[ -x "$HOME/.local/share/firefox/firefox" ]] && add_path "$HOME/.local/share/firefox"
 
