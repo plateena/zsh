@@ -1,125 +1,92 @@
 #!/bin/zsh
 
-# Color codes for prompt
-black="235"
-white="015"
-dir_arrow_end_bg="039"
+source $ZDOTDIR/bin/shortendir.zsh
 
-# Source the script for shortening directories
-source $ZDOTDIR/bin/shortendir.sh
+# Cached git state (populated in precmd)
+typeset -g _git_branch=""
+typeset -g _git_dirty=""
+typeset -g _git_toplevel=""
+typeset -g _git_prefix=""
+typeset -g _is_git=0
 
-# check icon at https://www.nerdfonts.com/cheat-sheet 
-branch_icon() {
-    # printf "\uf418"
-    printf "\ue725"
-}
-check_icon() {
-    # printf "\uf058" # rounded check
-    printf "\ue63f" # rounded check
-}
-exclamation_icon() {
-    # printf "\uf06a" # rounded exclamation
-    printf "\uf12a" # fat exclamation
-}
+_cache_git_info() {
+    if git rev-parse --is-inside-work-tree &>/dev/null; then
+        _is_git=1
+        _git_branch=$(git branch --show-current 2>/dev/null)
+        _git_toplevel=$(git rev-parse --show-toplevel 2>/dev/null)
+        _git_prefix=$(git rev-parse --show-prefix 2>/dev/null)
+        _git_prefix=${_git_prefix%/}
 
-prompt_icon() {
-    # moon icon
-    # printf "\ue3cc"
-    # 󰣇
-    printf "󰣇 \uf4b5 󰶻"
-}
-
-# Function to display the git branch information in the prompt
-git_branch_name() {
-    local branch=$(git branch --show-current)
-    local bg="red"
-    local prefix=$(git rev-parse --show-prefix | sed 's/\/$//')
-    local pr=""
-    local dir=$(git rev-parse --show-toplevel)
-
-    # Check if the git status has differences
-    if ! git diff --quiet 2>/dev/null; then
-        bg="196"
+        if git diff --quiet HEAD 2>/dev/null && [[ -z "$(git status --porcelain --untracked-files=no 2>/dev/null)" ]]; then
+            _git_dirty=0
+        elif ! git diff --quiet 2>/dev/null; then
+            _git_dirty=2
+        else
+            _git_dirty=1
+        fi
     else
-        bg="166"
+        _is_git=0
+        _git_branch=""
+        _git_dirty=""
+        _git_toplevel=""
+        _git_prefix=""
     fi
+}
 
-    # Check if the current git status is clean
-    if git diff --quiet HEAD 2>/dev/null && [ -z "$(git status --porcelain --untracked-files=no 2>/dev/null)" ]; then
-        bg="036"
-    fi
-
-    dir_arrow_end_bg="$bg"
-
-    dir=$(shorten_dir $dir 20)
-
-    if [[ ! -z "$prefix" ]]; then
-        prefix=$(shorten_dir $prefix 10)
-    fi
-
-    # Constructing the prompt string
-    pr+="%K{$black}%F{green} $dir %K{$bg}%F{$black}"
-    pr+="%K{$bg}%F{015} %B$(branch_icon) $branch %K{$black}%F{$bg}"
-
-    if [ ! -z "$prefix" ]; then
-        pr+=" %F{green}$prefix %K{039}%F{$black}%F{none}"
+_prompt_dir() {
+    if (( _is_git )); then
+        local dir=$(shorten_dir "$_git_toplevel" 20)
+        echo "$dir"
     else
-        pr+="%B%K{039}%F{$black}%F{none}"
-    fi
-
-    echo "$pr"
-}
-
-# Function to check if the current shell is inside a git repository
-is_inside_git() {
-    git rev-parse --is-inside-work-tree &>/dev/null
-}
-
-# Function to get the current directory
-get_current_dir() {
-    dir="%~"
-    if is_inside_git; then
-        echo $(shorten_dir $(git rev-parse --show-toplevel))
-    else
-        echo $(shorten_dir $dir)
+        local home_icon=$'\U000f02dc'
+        local dir="${PWD/$HOME/$home_icon}"
+        echo "$dir"
     fi
 }
 
-# Function to set the right prompt
+_prompt_git_segment() {
+    (( _is_git )) || return
+
+    local color
+    case $_git_dirty in
+        0) color="036" ;;  # clean
+        1) color="166" ;;  # staged/untracked
+        2) color="196" ;;  # unstaged changes
+    esac
+
+    local segment="%F{$color}\ue725 $_git_branch%f"
+
+    if [[ -n "$_git_prefix" ]]; then
+        local prefix=$(shorten_dir "$_git_prefix" 10)
+        segment+=" %F{green}$prefix%f"
+    fi
+
+    echo "$segment"
+}
+
 set_right_prompt() {
-    rp=""
-    rp+="%F{031}%F{067} $(get_current_dir) "
-    rp+="%F{015}%F{015} %* "
-    rp+="%F{031}%F{039} %D "
-    RPROMPT="$rp%K{none}%F{none}"
-}
+    local rp=""
+    rp+="%F{067} $(_prompt_dir) "
+    rp+="%F{015}󰥔 %* "
+    rp+="%F{039}󰃭 %D{%-d-%b}"
 
-# Function to set the left prompt
-set_left_prompt() {
-    p=""
-    # p+="%K{015} %B%(?.%F{035}$(check_icon).%F{red}$(exclamation_icon))%b %K{black}%F{015}"
-
-    if is_inside_git; then
-        # p+="$(git_branch_name)"
-    else
-        # p+="%K{$black}%F{green} %~ %K{039}%F{$black}"
+    if (( _is_git )); then
+        rp+=" $(_prompt_git_segment)"
     fi
 
-    # PROMPT="$p%K{039}%F{$black}%B %# %K{none}%F{039}%K{none}%F{none} "
-    # PROMPT="%(?.%B.%F{red}$(exclamation_icon)) %K{none}%F{047}$(printf '\uf4b5') %B%K{none}%F{none} "
-    PROMPT="%K{none} %(?.%F{047}.%F{red})$(printf '\uf4b5') %B%K{none}%F{none} "
+    RPROMPT="$rp%f"
 }
 
-# Function to set the complete prompt
-set_prompt() {
+set_left_prompt() {
+    local icon=$(printf '\uf4b5')
+    PROMPT="%K{none} %(?.%F{047}.%F{red})${icon} %B%K{none}%F{none} "
+}
+
+_prompt_precmd() {
+    print -P "%F{237}${(r:$COLUMNS::-:)}%f"
+    _cache_git_info
     set_left_prompt
     set_right_prompt
 }
-
-# Add line before prompt
-precmd() { 
-    # echo -e "\033[40;33m${(r:$COLUMNS:: :)}"
-    echo -e "${(r:$COLUMNS:::)}"
-    # Run the set_prompt function
-    set_prompt
-}
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd _prompt_precmd

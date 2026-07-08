@@ -44,7 +44,19 @@ function zle-line-init {
 }
 zle -N zle-line-init
 
-preexec() { echo -ne '\e[5 q'; }
+# --- Hooks (use add-zsh-hook to avoid overwriting) ---
+autoload -Uz add-zsh-hook
+
+_cursor_beam_preexec() { echo -ne '\e[5 q'; }
+add-zsh-hook preexec _cursor_beam_preexec
+
+# OSC 7: report CWD to terminal/tmux for pane_current_path
+_osc7_chpwd() {
+  printf '\e]7;file://%s%s\e\\' "${HOST}" "${PWD}"
+}
+add-zsh-hook chpwd _osc7_chpwd
+_osc7_chpwd  # run once on shell start
+
 echo -ne '\e[5 q' # initial beam cursor
 
 # --- Keybinds, Plugins, Aliases ---

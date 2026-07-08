@@ -9,8 +9,9 @@ zle -N vi-yank-x-selection
 bindkey '^[Y' vi-yank-x-selection
 bindkey -a '^[Y' vi-yank-x-selection
 
-bindkey -M vicmd 'k' up-line-or-history
-bindkey -M vicmd 'j' down-line-or-history
+# Handled by atuin (atuin-up-search-vicmd overrides k after init)
+# bindkey -M vicmd 'k' up-line-or-history
+# bindkey -M vicmd 'j' down-line-or-history
 
 # Atuin: session-scoped search (current tmux pane)
 _atuin_session_search() { _atuin_search --filter-mode session; }
@@ -22,3 +23,7 @@ bindkey -M vicmd '^[r' atuin-session-search
 autoload edit-command-line
 zle -N edit-command-line
 bindkey -M vicmd 'v' edit-command-line
+
+# Autosuggestion accept
+bindkey -M viins '^[l' autosuggest-accept
+bindkey -M viins '^[f' emacs-forward-word
